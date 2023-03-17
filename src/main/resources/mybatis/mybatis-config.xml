@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/> <!-- 카멜케이스 적용 -->
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="com.spring.jpa_mybatis.entity.Book" alias="book"/> <!-- Book클래스 alias 등록 -->
+        <typeAlias type="com.spring.jpa_mybatis.entity.Person" alias="person"/> <!-- Person클래스 alias 등록 -->
+    </typeAliases>
+
+    <mappers>
+        <mapper resource="mapper/bookmapper.xml" /> <!-- book 매퍼 등록 -->
+        <mapper resource="mapper/personmapper.xml" /> <!-- person 매퍼 등록 -->
+    </mappers>
+</configuration>
