@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "room")
 public class Room {
 
