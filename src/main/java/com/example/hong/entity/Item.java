@@ -1,6 +1,5 @@
 package com.example.hong.entity;
 
-
 import com.example.hong.constant.ItemSellStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,12 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "item")
 public class Item {
@@ -39,4 +37,16 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus; //상품 판매 상태
 
+    @OneToMany(mappedBy = "item")
+    private List<OrderItem> orderItem = new ArrayList<>();
+
+
+    @Builder
+    public Item(String itemName, int price, int stockNumber, String itemDetail,ItemSellStatus itemSellStatus) {
+        this.itemName = itemName;
+        this.price = price;
+        this.stockNumber = stockNumber;
+        this.itemDetail = itemDetail;
+        this.itemSellStatus=itemSellStatus;
+    }
 }
