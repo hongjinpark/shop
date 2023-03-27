@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,6 +22,11 @@ public class User {
     private String email;
     private int age;
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Item> item=new ArrayList<>();
+
+
 
 
     @Builder
