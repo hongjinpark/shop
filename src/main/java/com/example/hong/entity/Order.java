@@ -15,13 +15,13 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class Order extends BaseEntity{
     @Id
     @GeneratedValue
     @Column(name = "order_id")
     private Long id;
 
-    private LocalDateTime orderDate;
+
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
@@ -33,8 +33,7 @@ public class Order {
     private List<OrderItem> orderItem=new ArrayList<>();
 
     @Builder
-    public Order(LocalDateTime localDateTime,OrderStatus orderStatus){
-        this.orderDate=localDateTime;
+    public Order(OrderStatus orderStatus){
         this.orderStatus=orderStatus;
     }
 }
