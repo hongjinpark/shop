@@ -1,4 +1,4 @@
-package com.example.hong.enums;
+package com.example.hong.constant;
 
 public enum OrderStatus {
     ORDER,CANCEL
