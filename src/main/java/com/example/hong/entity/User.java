@@ -23,10 +23,6 @@ public class User {
     private int age;
     private String password;
 
-    @OneToMany(mappedBy = "user")
-    private List<Item> item=new ArrayList<>();
-
-
 
 
     @Builder

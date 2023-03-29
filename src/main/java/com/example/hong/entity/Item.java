@@ -1,7 +1,7 @@
 package com.example.hong.entity;
 
 
-import com.example.hong.enums.ItemSellStatus;
+import com.example.hong.constant.ItemSellStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,8 +15,6 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "item")
 public class Item {
@@ -53,5 +51,13 @@ public class Item {
         this.stockNumber = stockNumber;
         this.itemDetail = itemDetail;
         this.itemSellStatus=itemSellStatus;
+    }
+
+    public void updateItem(String itemName,int price,int stockNumber,String itemDetail){
+        this.itemName=itemName;
+        this.price=price;
+        this.stockNumber=stockNumber;
+        this.itemDetail=itemDetail;
+//        this.itemSellStatus=itemSellStatus;
     }
 }
