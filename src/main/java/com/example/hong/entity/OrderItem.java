@@ -10,11 +10,11 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "order_item")
 public class OrderItem {
     @Id
-    @GeneratedValue
-    @Column(name = "order_Item_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_item_id")
     private Long id;
 
     private int orderPrice;
@@ -29,8 +29,8 @@ public class OrderItem {
     private Item item;
 
     @Builder
-    public OrderItem(int orderPrice,int count){
-        this.orderPrice=orderPrice;
-        this.count=count;
+    public OrderItem(int orderPrice ,int count){
+        this.orderPrice = orderPrice;
+        this.count = count;
     }
 }
