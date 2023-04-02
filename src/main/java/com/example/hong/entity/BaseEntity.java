@@ -16,8 +16,8 @@ public abstract class BaseEntity extends BaseTimeEntity {
 
     @CreatedBy
     @Column(updatable = false)
-    private String createdBy; //등록 시간
+    private String createdBy; //등록자
 
     @LastModifiedBy
-    private String modifiedBy; //수정 시간
+    private String modifiedBy; //수정자
 }
