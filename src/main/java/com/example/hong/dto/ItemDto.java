@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Getter
@@ -15,10 +17,17 @@ import java.time.LocalDateTime;
 @Builder
 public class ItemDto {
 
-    private String itemName; //상품명
-    private Integer price; //가격
-    private int stockNumber; //재고수량
-    private String itemDetail; //상품 상세 설명
+    @NotBlank(message = "상품명은 필수 입력 값입니다.")
+    private String itemName;
+
+    @NotNull(message = "가격은 필수 입력 값입니다.")
+    private Integer price;
+
+    @NotBlank(message = "이름은 필수 입력 값입니다.")
+    private String itemDetail;
+
+    @NotNull(message = "재고는 필수 입력 값입니다.")
+    private Integer stockNumber;
 
     public Item toEntity(){
         return Item.builder()
