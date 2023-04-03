@@ -22,5 +22,5 @@ public abstract class BaseTimeEntity {
     private LocalDateTime regTime; //등록 시간
 
     @LastModifiedDate
-    private LocalDateTime updateTime; // 수정 시간
+    private LocalDateTime updateTime; //수정 시간
 }

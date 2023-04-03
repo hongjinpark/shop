@@ -23,8 +23,6 @@ public class User {
     private int age;
     private String password;
 
-
-
     @Builder
     public User(String id, String email, int age, String password) {
         this.id = id;

@@ -1,7 +1,5 @@
 package com.example.hong.dto;
 
-import com.example.hong.constant.ItemSellStatus;
-import com.example.hong.entity.Book;
 import com.example.hong.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
+
+
 
 @Getter
 @NoArgsConstructor
