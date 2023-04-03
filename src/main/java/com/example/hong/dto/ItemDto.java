@@ -1,15 +1,14 @@
 package com.example.hong.dto;
 
+
+import com.example.hong.constant.ItemSellStatus;
 import com.example.hong.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-
-
 
 @Getter
 @NoArgsConstructor
@@ -26,8 +25,8 @@ public class ItemDto {
     private int stockNumber; //재고수량
     @NotEmpty(message = "상품 상세 설명은 필수 입력 값입니다.")
     private String itemDetail; //상품 상세 설명
-
-
+    
+    private ItemSellStatus itemSellStatus;
 
     public Item toEntity(){
         return Item.builder()
@@ -35,6 +34,7 @@ public class ItemDto {
                 .price(price)
                 .stockNumber(stockNumber)
                 .itemDetail(itemDetail)
+                .itemSellStatus(ItemSellStatus.SELL)
                 .build();
     }
 }
