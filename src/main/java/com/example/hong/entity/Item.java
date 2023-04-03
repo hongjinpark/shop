@@ -58,6 +58,5 @@ public class Item {
         this.price=price;
         this.stockNumber=stockNumber;
         this.itemDetail=itemDetail;
-//        this.itemSellStatus=itemSellStatus;
     }
 }
