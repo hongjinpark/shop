@@ -1,6 +1,7 @@
 package com.example.hong.entity;
 
 
+import com.example.hong.constant.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,9 @@ public class User {
     private int age;
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<Board> board=new ArrayList<>();
 
     @Builder

@@ -4,7 +4,9 @@ import com.example.hong.constant.QuestionStatus;
 import com.example.hong.constant.Role;
 import com.example.hong.dto.BoardDto;
 import com.example.hong.entity.Board;
+import com.example.hong.entity.User;
 import com.example.hong.repository.BoardRepository;
+import com.example.hong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public Board createBoard(BoardDto boardDto){
@@ -26,18 +29,39 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
-    public List<Board> getListBoard(){ //전체 문의 조회(관리자용)
-        return boardRepository.findAll();
+    public List<Board> getBoardList(){ //전체 문의 조회(관리자용)
+        return boardRepository.findAllByOrderByIdDesc();
+    }   //관리자용(문의 전체 리스트)
+
+    public Board getBoard(Long id){
+        return boardRepository.findById(id).get();
     }
 
     public List<Board> getIndividualBoard(String name){   //문의 조회(사용자용)
-        return boardRepository.findAllByName(name);
+        return boardRepository.findAllByNameOrderByIdDesc(name);
+    }   //유저용(자신 문의내용 전체 불러오기)
+
+    @Transactional
+    public Board insertAnswer(Long id,String email,String answer){     //관리자만 문의 답장가능하게
+        Board board=boardRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 id가 없습니다. id=" + id));
+        if (checkUserRole(email)){
+            board.insertAnswer(answer);
+            return boardRepository.save(board);
+        }else {
+         //오류
+         log.info("오류구현");
+         return null;
+        }
     }
 
-//    public Board insertAnswer(Long id,String answer){     //관리자만 댓글가능하게
-//        Board board=boardRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 id가 없습니다. id=" + id));
-//        if(Role.USER==)
-//        board.insertAnswer(answer);
-//    }
+    @Transactional
+    public void deleteBoard(Long id){
+        boardRepository.deleteById(id);
+    }
+
+    public boolean checkUserRole(String email){
+        User user=userRepository.findByEmail(email);
+        return user.getRole().equals(Role.ADMIN);
+    }
 
 }

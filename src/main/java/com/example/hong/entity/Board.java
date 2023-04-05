@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class Board {
     @Id
     @Column(name="board_id")
+    @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
@@ -46,6 +47,7 @@ public class Board {
 
     public void insertAnswer(String answer){
         this.answer=answer;
+        this.questionStatus=QuestionStatus.ANSWER;
     }
 
 }
