@@ -27,10 +27,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()//'formLogin()'에서 폼방식 로그인을 사용할 것임을 알림
-                .loginPage("/")//커스텀 페이지로 로그인 페이지변경
+//                .loginPage("/")//커스텀 페이지로 로그인 페이지변경
+                .loginProcessingUrl("/member/loginPro")//form 태그의 Action URL.
                 .usernameParameter("userEmail")
                 .passwordParameter("passWord")
-                .loginProcessingUrl("/member/loginPro")//form 태그의 Action URL.
                 .defaultSuccessUrl("/home")//로그인인증 성공후 갈 페이지
                 .failureForwardUrl("/loginFail")
                 .permitAll()
