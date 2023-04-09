@@ -14,14 +14,15 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Table(name = "user")
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @Column(name = "user_id")
     private String id;
 
     private String email;
-    private int age;
+    private String name;
+    private String address;
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -30,11 +31,13 @@ public class User {
     private List<Board> board=new ArrayList<>();
 
     @Builder
-    public User(String id, String email, int age, String password) {
+    public User(String id, String email,String name,String address ,String password) {
         this.id = id;
         this.email = email;
-        this.age = age;
+        this.name = name;
+        this.address=address;
         this.password = password;
+        this.role=Role.USER;
     }
 
     public void updatePw(String password) {

@@ -43,6 +43,9 @@ public class Item extends BaseEntity{
     @OneToMany(mappedBy = "item")
     private List<OrderItem> orderItem=new ArrayList<>();
 
+    @OneToMany(mappedBy = "item")
+    private List<CartItem> cartItem=new ArrayList<>();
+
 
     @Builder
     public Item(String itemName, int price, int stockNumber, String itemDetail,ItemSellStatus itemSellStatus) {

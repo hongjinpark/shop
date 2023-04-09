@@ -26,8 +26,6 @@ public class Order extends BaseEntity{
     @JoinColumn(name="user_id")
     private User user;
 
-    private LocalDateTime orderDate; //주문일자
-
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus; //주문상태
 
@@ -35,8 +33,7 @@ public class Order extends BaseEntity{
     private List<OrderItem> orderItem = new ArrayList<>();
 
     @Builder
-    public Order(LocalDateTime orderDate, OrderStatus orderStatus) {
-        this.orderDate = orderDate;
+    public Order( OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 }
