@@ -25,6 +25,9 @@ public class ItemDto {
     private int stockNumber; //재고수량
     @NotEmpty(message = "상품 상세 설명은 필수 입력 값입니다.")
     private String itemDetail; //상품 상세 설명
+
+    @NotEmpty(message = "상품 이미지 경로를 입력 해주세요.")
+    private String imgUrl; //상품 이미지 경로
     
     private ItemSellStatus itemSellStatus;
 

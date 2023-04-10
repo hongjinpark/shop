@@ -2,14 +2,11 @@ package com.example.hong.entity;
 
 
 import com.example.hong.constant.ItemSellStatus;
-
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +30,9 @@ public class Item extends BaseEntity{
     @Column(nullable = false)
     private int stockNumber; //재고수량
 
+    @Column(nullable = false)
+    private String imgUrl; //상품 이미지 경로
+
     @Lob
     @Column(nullable = false)
     private String itemDetail; //상품 상세 설명
@@ -48,18 +48,20 @@ public class Item extends BaseEntity{
 
 
     @Builder
-    public Item(String itemName, int price, int stockNumber, String itemDetail,ItemSellStatus itemSellStatus) {
+    public Item(String itemName, int price, int stockNumber, String imgUrl, String itemDetail, ItemSellStatus itemSellStatus) {
         this.itemName = itemName;
         this.price = price;
         this.stockNumber = stockNumber;
+        this.imgUrl = imgUrl;
         this.itemDetail = itemDetail;
         this.itemSellStatus=itemSellStatus;
     }
 
-    public void updateItem(String itemName,int price,int stockNumber,String itemDetail){
+    public void updateItem(String itemName, int price, int stockNumber, String imgUrl, String itemDetail){
         this.itemName=itemName;
         this.price=price;
         this.stockNumber=stockNumber;
+        this.imgUrl = imgUrl;
         this.itemDetail=itemDetail;
     }
 }

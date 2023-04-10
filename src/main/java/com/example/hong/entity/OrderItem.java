@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "order_item")
 public class OrderItem extends BaseEntity{
     @Id
@@ -17,8 +18,8 @@ public class OrderItem extends BaseEntity{
     @Column(name = "order_item_id")
     private Long id;
 
-    private int orderPrice;
-    private int count;
+    private int orderPrice; //주문 금액
+    private int count; //주문 수량
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="order_id")
@@ -29,8 +30,10 @@ public class OrderItem extends BaseEntity{
     private Item item;
 
     @Builder
-    public OrderItem(int orderPrice ,int count){
+    public OrderItem(int orderPrice, int count) {
         this.orderPrice = orderPrice;
         this.count = count;
     }
+
+
 }

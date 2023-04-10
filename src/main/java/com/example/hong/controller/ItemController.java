@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 public class ItemController {
     private final ItemService itemService;
 
+    //상품조회
+    @GetMapping("/{itemId}")
+    public Item itemDtl(@PathVariable Long itemId) {
+        return itemService.selectItem(itemId);
+    }
+
     //상품등록
     @PostMapping("/new")
     public Item newItem(@RequestBody ItemDto itemDto){

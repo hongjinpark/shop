@@ -41,5 +41,4 @@ public class Book implements Serializable {
         this.price = price;
         this.publisher = publisher;
     }
-
 }

@@ -6,4 +6,9 @@
     <select id="getOrder" parameterType="order" resultType="order">
         SELECT * FROM order
     </select>
+
+    <insert id="order" parameterType="OrderItemDto">
+        INSERT INTO order_item (item_id, reg_time, count, order_price)
+        VALUES (#{item_id}, now(), #{count}, #{orderPrice})
+    </insert>
 </mapper>

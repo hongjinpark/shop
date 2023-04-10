@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/books")
@@ -24,7 +25,7 @@ public class BookController {
 
     @GetMapping
     public ResponseEntity getAllBook() {
-        List<Book> result = bookMapper.getBook();
+        List<Book> result = bookMapper.getAllBook();
         return ResponseEntity.ok(result);
     }
 
@@ -49,9 +50,11 @@ public class BookController {
         bookService.delete(id);
     }
 
-  /*@GetMapping
-    public String imgUpload(MultipartFile multiPartFile) {
-        return null;
-    }*/
+    @GetMapping("/mapper")
+    public ResponseEntity getBook(@RequestParam String name) {
+        Map<String, Object> result = bookService.getBookName(name);
+
+        return new ResponseEntity(result, HttpStatus.OK);
+    }
 
 }

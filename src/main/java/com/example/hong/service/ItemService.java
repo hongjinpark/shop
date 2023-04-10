@@ -15,6 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class ItemService {
     private final ItemRepository itemRepository;
 
+
+    public Item selectItem(Long itemId) {
+        return itemRepository.findById(itemId).orElseThrow(IllegalArgumentException::new);
+    }
     @Transactional
     public Item createItem(ItemDto itemDto){
 
@@ -27,7 +31,7 @@ public class ItemService {
     public Item updateItem(Long id,ItemDto itemDto){
         Item item=itemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 id가 없습니다. id=" + id));
 
-        item.updateItem(itemDto.getItemName(),itemDto.getPrice(),itemDto.getStockNumber(),itemDto.getItemDetail());
+        item.updateItem(itemDto.getItemName(),itemDto.getPrice(),itemDto.getStockNumber(), itemDto.getImgUrl(), itemDto.getItemDetail());
         return itemRepository.save(item);
     }
 
@@ -35,7 +39,5 @@ public class ItemService {
     public void deleteItem(Long id){
         itemRepository.deleteById(id);
     }
-
-
 
 }

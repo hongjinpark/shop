@@ -3,10 +3,13 @@ package com.example.hong.service;
 
 import com.example.hong.dto.BookDto;
 import com.example.hong.entity.Book;
+import com.example.hong.mapper.BookMapper;
 import com.example.hong.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Map;
 
 
 @RequiredArgsConstructor
@@ -14,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookService {
 
     private final BookRepository bookRepository;
-
+    private final BookMapper bookMapper;
 
     /**
      *
@@ -46,5 +49,12 @@ public class BookService {
 
     public void delete(int id) {
         bookRepository.deleteById(id);
+    }
+
+    //Mybatis
+
+    public Map<String, Object> getBookName(String name) {
+
+        return bookMapper.getBookName(name);
     }
 }
