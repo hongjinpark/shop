@@ -25,8 +25,9 @@ public class GlobalExceptionHandler {
     }*/
 
     @ExceptionHandler({IllegalArgumentException.class, NotFoundException.class})
-    public ResponseEntity<ErrorResponse> handleException2(IllegalArgumentException ex){
-        log.error("부적절한 인자값 에러",ex);
+    public ResponseEntity<ErrorResponse> handleException(IllegalArgumentException e){
+        log.error("부적절한 인자값 에러", e);
+        e.printStackTrace();
         ErrorResponse response = new ErrorResponse(ErrorCode.RESOURCE_NOT_FOUND);
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
@@ -34,13 +35,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleException2(MethodArgumentNotValidException e){
         log.error("파라미터 없음", e);
+        e.printStackTrace();
         ErrorResponse response = makeErrorResponse(e.getBindingResult());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception ex){
-        log.error("handleException",ex);
+    public ResponseEntity<ErrorResponse> handleExceptions(Exception e){
+        log.error("handleException", e);
+        e.printStackTrace();
         ErrorResponse response = new ErrorResponse(ErrorCode.INTER_SERVER_ERROR);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -71,5 +74,12 @@ public class GlobalExceptionHandler {
         }
 
         return new ErrorResponse(status, errorCode, message);
+    }
+
+    public static class OutOfStockException extends RuntimeException{
+
+        public OutOfStockException(String message){
+            super(message);
+        }
     }
 }

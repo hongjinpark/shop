@@ -2,6 +2,7 @@ package com.example.hong.entity;
 
 
 import com.example.hong.constant.ItemSellStatus;
+import com.example.hong.controller.GlobalExceptionHandler;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,20 +49,28 @@ public class Item extends BaseEntity{
 
 
     @Builder
-    public Item(String itemName, int price, int stockNumber, String imgUrl, String itemDetail, ItemSellStatus itemSellStatus) {
+    public Item(String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus) {
         this.itemName = itemName;
         this.price = price;
         this.stockNumber = stockNumber;
-        this.imgUrl = imgUrl;
         this.itemDetail = itemDetail;
         this.itemSellStatus=itemSellStatus;
     }
 
-    public void updateItem(String itemName, int price, int stockNumber, String imgUrl, String itemDetail){
+    public void updateItem(String itemName, int price, int stockNumber, String itemDetail){
         this.itemName=itemName;
         this.price=price;
         this.stockNumber=stockNumber;
-        this.imgUrl = imgUrl;
         this.itemDetail=itemDetail;
+    }
+
+    public void removeStock(int stockNumber) {
+
+        int restStock = this.stockNumber - stockNumber;
+        if(restStock < 0) {
+
+            throw new GlobalExceptionHandler.OutOfStockException("상품의 재고가 부족합니다.(현재 재고 수량: "+ this.stockNumber +")");
+        }
+        this.stockNumber = restStock;
     }
 }

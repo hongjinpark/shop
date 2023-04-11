@@ -1,13 +1,11 @@
 package com.example.hong.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,11 +27,22 @@ public class OrderItem extends BaseEntity{
     @JoinColumn(name="item_id")
     private Item item;
 
+    public static OrderItem createOrderItem(Item item, int count) {
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setCount(count);
+        orderItem.setOrderPrice(item.getPrice());
+
+        item.removeStock(count);
+        return orderItem;
+    }
+
     @Builder
-    public OrderItem(int orderPrice, int count) {
+    public OrderItem(Item item, int orderPrice, int count) {
+        this.item = item;
         this.orderPrice = orderPrice;
         this.count = count;
     }
-
 
 }

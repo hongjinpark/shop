@@ -31,7 +31,7 @@ public class ItemService {
     public Item updateItem(Long id,ItemDto itemDto){
         Item item=itemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 id가 없습니다. id=" + id));
 
-        item.updateItem(itemDto.getItemName(),itemDto.getPrice(),itemDto.getStockNumber(), itemDto.getImgUrl(), itemDto.getItemDetail());
+        item.updateItem(itemDto.getItemName(),itemDto.getPrice(),itemDto.getStockNumber(), itemDto.getItemDetail());
         return itemRepository.save(item);
     }
 

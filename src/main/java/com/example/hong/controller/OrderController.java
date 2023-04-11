@@ -1,12 +1,19 @@
 package com.example.hong.controller;
 
 
+import com.example.hong.dto.OrderDto;
 import com.example.hong.mapper.OrderMapper;
 import com.example.hong.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/order")
@@ -28,27 +35,26 @@ public class OrderController {
         return new ResponseEntity(result, HttpStatus.OK);
     }*/
 
-    @PostMapping("/")
-    public ResponseEntity save(@PathVariable Long item_id, @RequestParam int count, @RequestParam int orderPrice) {
+    @PostMapping(value = "/order")
+    public @ResponseBody ResponseEntity order (@RequestBody @Valid OrderDto orderDto, BindingResult bindingResult, Principal principal) {
 
+        if(bindingResult.hasErrors()) {
 
-        try {
-            orderService.order(item_id, count, orderPrice);
+            StringBuilder sb = new StringBuilder();
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            for(FieldError fieldError : fieldErrors) {
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                sb.append(fieldError.getDefaultMessage());
+            }
+            return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity(HttpStatus.OK);
+
+        // email 추후에 수정
+        String email = /*principal.getName();*/ "test";
+        Long orderId;
+        orderId = orderService.order(orderDto, email);
+
+        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }
 
- /*   @PutMapping("/{id}")
-    public Book update(@PathVariable Long id , @RequestBody BookDto bookDto, BindingResult bindingResult) {
-        return orderService.update(id, bookDto);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable Long id) {
-        orderService.delete(id);
-    }*/
 }

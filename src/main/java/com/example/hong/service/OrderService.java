@@ -1,13 +1,21 @@
 package com.example.hong.service;
 
 
-import com.example.hong.dto.OrderItemDto;
-import com.example.hong.mapper.OrderMapper;
+import com.example.hong.dto.OrderDto;
+import com.example.hong.entity.Item;
+import com.example.hong.entity.Order;
+import com.example.hong.entity.OrderItem;
+import com.example.hong.entity.User;
 import com.example.hong.repository.ItemRepository;
 import com.example.hong.repository.OrderItemRepository;
+import com.example.hong.repository.OrderRepository;
 import com.example.hong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -18,24 +26,24 @@ public class OrderService {
     private final OrderItemRepository orderItemRepository;
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
-    private final OrderMapper orderMapper;
+    private final OrderRepository orderRepository;
     //Jpa
 
-    /**
-     *
-     * @param
-     * @return
-     */
 
-    public void order(Long item_id, int count, int orderPrice){
 
-        OrderItemDto orderItemDto = orderItemDto.toEntity().b
-                .item_id(item_id)
-                .orderPrice(orderPrice)
-                .count(count)
-                .build();
+    public Long order(OrderDto orderDto, String email) {
 
-       orderMapper.order(orderItemDto);
+        Item item = itemRepository.findById(orderDto.getItemId())
+                .orElseThrow(EntityNotFoundException::new);
+        User user = userRepository.findByEmail(email);
+        List<OrderItem> orderItemList = new ArrayList<>();
+        OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());
+        orderItemList.add(orderItem);
+
+        Order order = Order.createOrder(user, orderItemList);
+        orderRepository.save(order);
+
+        return order.getId();
     }
 
 
