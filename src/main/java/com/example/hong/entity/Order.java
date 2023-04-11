@@ -1,6 +1,7 @@
 package com.example.hong.entity;
 
 import com.example.hong.constant.OrderStatus;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,7 +43,7 @@ public class Order extends BaseEntity{
         orderItem.setOrder(this);
     }
 
-    public static Order createOrder(User user, List<OrderItem> orderItemList) {
+  /*  public static Order createOrder(User user, List<OrderItem> orderItemList) {
 
         Order order = new Order();
         order.user = user;
@@ -53,6 +54,31 @@ public class Order extends BaseEntity{
         order.orderStatus = OrderStatus.ORDER;
         order.orderDate = LocalDateTime.now();
         return order;
+    }*/
+
+    @Builder
+    private Order(User user, List<OrderItem> orderItems, LocalDateTime orderDate, OrderStatus orderStatus) {
+
+        this.user = user;
+        this.orderItems = orderItems;
+        this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+
+        // 연관관계 편의 메소드
+        OrderItem.builder().order(this).build();
+
+    }
+
+    @Builder
+    public static Order createOrder(User user, List<OrderItem> orderItems, LocalDateTime orderDate, OrderStatus orderStatus) {
+
+        return Order.builder()
+                .user(user)
+                .orderItems(orderItems)
+                .orderDate(LocalDateTime.now())
+                .orderStatus(OrderStatus.ORDER)
+                .build();
+
     }
 
 

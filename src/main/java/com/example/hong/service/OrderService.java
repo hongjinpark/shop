@@ -37,10 +37,19 @@ public class OrderService {
                 .orElseThrow(EntityNotFoundException::new);
         User user = userRepository.findByEmail(email);
         List<OrderItem> orderItemList = new ArrayList<>();
-        OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());
+
+        Order order1 = Order.builder()
+                .orderDate()
+                .build();
+
+        /*OrderItem orderItem = OrderItem.OrderItem(item, orderDto.getCount());*/
+        OrderItem orderItem = OrderItem.builder()
+                .item(item)
+                .count(orderDto.getCount())
+                .build();
         orderItemList.add(orderItem);
 
-        Order order = Order.createOrder(user, orderItemList);
+        Order order = Order.createOrder(User user, orderItem).builder.build();
         orderRepository.save(order);
 
         return order.getId();

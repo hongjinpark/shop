@@ -35,7 +35,7 @@ public class OrderController {
         return new ResponseEntity(result, HttpStatus.OK);
     }*/
 
-    @PostMapping(value = "/order")
+    @PostMapping
     public @ResponseBody ResponseEntity order (@RequestBody @Valid OrderDto orderDto, BindingResult bindingResult, Principal principal) {
 
         if(bindingResult.hasErrors()) {

@@ -27,7 +27,7 @@ public class OrderItem extends BaseEntity{
     @JoinColumn(name="item_id")
     private Item item;
 
-    public static OrderItem createOrderItem(Item item, int count) {
+   /* public static OrderItem createOrderItem(Item item, int count) {
 
         OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
@@ -36,10 +36,11 @@ public class OrderItem extends BaseEntity{
 
         item.removeStock(count);
         return orderItem;
-    }
+    }*/
 
     @Builder
-    public OrderItem(Item item, int orderPrice, int count) {
+    public OrderItem(Order order, Item item, int orderPrice, int count) {
+        this.order = order;
         this.item = item;
         this.orderPrice = orderPrice;
         this.count = count;
