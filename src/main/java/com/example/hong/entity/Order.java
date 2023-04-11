@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -33,28 +34,9 @@ public class Order extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus; //주문상태
 
+
     @OneToMany(mappedBy = "order" ,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
-
-
-    public void addOrderItem(OrderItem orderItem) {
-
-        orderItems.add(orderItem);
-        orderItem.setOrder(this);
-    }
-
-  /*  public static Order createOrder(User user, List<OrderItem> orderItemList) {
-
-        Order order = new Order();
-        order.user = user;
-        for(OrderItem orderItem : orderItemList) {
-
-            order.addOrderItem(orderItem);
-        }
-        order.orderStatus = OrderStatus.ORDER;
-        order.orderDate = LocalDateTime.now();
-        return order;
-    }*/
 
     @Builder
     private Order(User user, List<OrderItem> orderItems, LocalDateTime orderDate, OrderStatus orderStatus) {
@@ -70,16 +52,26 @@ public class Order extends BaseEntity{
     }
 
     @Builder
-    public static Order createOrder(User user, List<OrderItem> orderItems, LocalDateTime orderDate, OrderStatus orderStatus) {
+    public static Order createOrder(User user, LocalDateTime orderDate, OrderStatus orderStatus, List<OrderItem> orderItems) {
 
-        return Order.builder()
+            Order order = Order.builder()
                 .user(user)
-                .orderItems(orderItems)
-                .orderDate(LocalDateTime.now())
-                .orderStatus(OrderStatus.ORDER)
+                .orderDate(orderDate)
+                .orderStatus(orderStatus)
+                .orderItems(new ArrayList<>())
                 .build();
 
+        for (OrderItem orderItem : orderItems) {
+
+            order.addOrderItem(orderItem);
+        }
+
+        return order;
     }
 
+    public void addOrderItem(OrderItem orderItem) {
 
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
 }

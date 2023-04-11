@@ -1,6 +1,7 @@
 package com.example.hong.service;
 
 
+import com.example.hong.constant.OrderStatus;
 import com.example.hong.dto.OrderDto;
 import com.example.hong.entity.Item;
 import com.example.hong.entity.Order;
@@ -14,7 +15,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -35,22 +38,34 @@ public class OrderService {
 
         Item item = itemRepository.findById(orderDto.getItemId())
                 .orElseThrow(EntityNotFoundException::new);
+
         User user = userRepository.findByEmail(email);
         List<OrderItem> orderItemList = new ArrayList<>();
 
-        Order order1 = Order.builder()
-                .orderDate()
-                .build();
+
 
         /*OrderItem orderItem = OrderItem.OrderItem(item, orderDto.getCount());*/
         OrderItem orderItem = OrderItem.builder()
                 .item(item)
                 .count(orderDto.getCount())
+                .orderPrice(item.getPrice())
                 .build();
         orderItemList.add(orderItem);
 
-        Order order = Order.createOrder(User user, orderItem).builder.build();
+        LocalDateTime orderDate = LocalDateTime.now();
+        OrderStatus orderStatus = OrderStatus.ORDER;
+
+
+        Order order = Order.createOrder(user, orderDate, orderStatus, orderItemList);
         orderRepository.save(order);
+        /*Order order = Order.builder()
+                .user(user)
+                .orderItems(orderItemList)
+                .orderDate(orderDate)
+                .orderStatus(orderStatus)
+                .build();
+        orderRepository.save(order);
+*/
 
         return order.getId();
     }
