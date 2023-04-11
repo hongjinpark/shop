@@ -30,10 +30,8 @@ public class OrderService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
+
     //Jpa
-
-
-
     public Long order(OrderDto orderDto, String email) {
 
         Item item = itemRepository.findById(orderDto.getItemId())
@@ -43,8 +41,6 @@ public class OrderService {
         List<OrderItem> orderItemList = new ArrayList<>();
 
 
-
-        /*OrderItem orderItem = OrderItem.OrderItem(item, orderDto.getCount());*/
         OrderItem orderItem = OrderItem.builder()
                 .item(item)
                 .count(orderDto.getCount())
@@ -58,34 +54,9 @@ public class OrderService {
 
         Order order = Order.createOrder(user, orderDate, orderStatus, orderItemList);
         orderRepository.save(order);
-        /*Order order = Order.builder()
-                .user(user)
-                .orderItems(orderItemList)
-                .orderDate(orderDate)
-                .orderStatus(orderStatus)
-                .build();
-        orderRepository.save(order);
-*/
 
         return order.getId();
     }
 
-
-   /* @Transactional
-    public Item updateItem(Long id,ItemDto itemDto){
-        Item item=orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 id가 없습니다. id=" + id));
-
-        item.updateItem(itemDto.getItemName(),itemDto.getPrice(),itemDto.getStockNumber(), itemDto.getImgUrl(), itemDto.getItemDetail());
-        return orderRepository.save(item);
-    }
-
-    @Transactional
-    public void deleteItem(Long id){
-        orderRepository.deleteById(id);
-    }
-
     //Mybatis
-    public Item selectItem(Long itemId) {
-        return orderRepository.findById(itemId).orElseThrow(IllegalArgumentException::new);
-    }*/
 }
