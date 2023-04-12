@@ -4,7 +4,6 @@ package com.example.hong.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -28,10 +27,27 @@ public class CartItem extends BaseEntity {
     private Item item;
 
     private int count;
+    @Builder
+    public static CartItem createCartItem(Cart cart, Item item, int count) {
 
-    public CartItem(Cart cart, Item item, int count) {
-        this.cart = cart;
-        this.item = item;
+        CartItem cartItem;
+
+        cartItem = CartItem.builder()
+                .cart(cart)
+                .item(item)
+                .count(count)
+                .build();
+
+        return cartItem;
+    }
+
+    public void addCount(int count) {
+
+        this.count += count;
+    }
+
+    public void updateCount(int count) {
+
         this.count = count;
     }
 }

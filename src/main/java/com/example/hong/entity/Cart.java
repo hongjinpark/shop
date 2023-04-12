@@ -2,8 +2,6 @@ package com.example.hong.entity;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -21,4 +19,15 @@ public class Cart extends BaseEntity {
     @JoinColumn(name="user_id")
     private User user;
 
+
+    @Builder
+    public static Cart createCart(User user) {
+
+        Cart cart;
+        cart = Cart.builder()
+                .user(user)
+                .build();
+
+        return cart;
+    }
 }
