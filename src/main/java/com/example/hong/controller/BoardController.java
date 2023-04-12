@@ -51,7 +51,7 @@ public class BoardController {
     }
 
     @PostMapping("/admin/answer/{id}")  //문의 답장(관리자)
-    public ResponseEntity postAnswer(@PathVariable Long id,@RequestBody String answer){
+    public ResponseEntity postAnswer(@PathVariable Long id,@RequestParam String answer){
         String emailtest="test1@naver.com";
         Board board = boardService.insertAnswer(id, emailtest, answer);
         return new ResponseEntity<Board>(board,HttpStatus.OK);
