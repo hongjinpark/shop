@@ -38,6 +38,7 @@ public class ItemDto {
                 .stockNumber(stockNumber)
                 .itemDetail(itemDetail)
                 .itemSellStatus(ItemSellStatus.SELL)
+                .imgUrl(imgUrl)
                 .build();
     }
 }

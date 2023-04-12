@@ -49,7 +49,8 @@ public class Item extends BaseEntity{
 
 
     @Builder
-    public Item(String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus) {
+    public Item(String imgUrl,String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus) {
+        this.imgUrl=imgUrl;    //이미지경로
         this.itemName = itemName;
         this.price = price;
         this.stockNumber = stockNumber;
@@ -57,7 +58,8 @@ public class Item extends BaseEntity{
         this.itemSellStatus=itemSellStatus;
     }
 
-    public void updateItem(String itemName, int price, int stockNumber, String itemDetail){
+    public void updateItem(String itemImg,String itemName, int price, int stockNumber, String itemDetail){
+        this.imgUrl=itemImg;    //이미지경로
         this.itemName=itemName;
         this.price=price;
         this.stockNumber=stockNumber;
