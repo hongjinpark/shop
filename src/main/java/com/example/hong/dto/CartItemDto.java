@@ -11,20 +11,21 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class CartItemDto {
 
-    @NotNull(message = "상품 아이디는 필수 입력 값 입니다.")
-    private Long itemId;
+//    @NotNull(message = "상품 아이디는 필수 입력 값 입니다.")
+//    private Long itemId;
 
     @Min(value = 1, message = "최소 1개 이상 담아주세요")
     private int count;
 
-  /*  public CartItem toEntity(Cart cart, Item item, int count){
+    private Item item;
+
+    @Builder
+   public CartItem toEntity(Item item, int count){
         return CartItem.builder()
-                .cart.getUser(item)
-                .item(itemId)
+                .item(item)
                 .count(count)
                 .build();
-    }*/
+    }
 }
