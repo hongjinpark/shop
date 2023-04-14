@@ -4,10 +4,7 @@ import com.example.hong.dto.CartItemDto;
 import com.example.hong.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,7 +15,7 @@ public class CartItemController {
 
     @PostMapping("/new")
     public ResponseEntity postCart(@RequestBody CartItemDto cartItemDto){
-        String email="test1@naver.com";
+        String email="test01@naver.com";
         cartService.insertCart(cartItemDto,email);
         return ResponseEntity.ok().build();
     }

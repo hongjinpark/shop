@@ -19,27 +19,29 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class CartService {
-
-    private final CartItemRepository cartItemRepository;
     private final CartRepository cartRepository;
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
 
     public void insertCart(CartItemDto cartItemDto,String email){
-        Item item=itemRepository.findById(cartItemDto.getItem().getId()).orElseThrow(EntityNotFoundException::new);
+
+        Item item=itemRepository.findById(cartItemDto.getItemId()).orElseThrow(EntityNotFoundException::new);
         User user=userRepository.findByEmail(email);
         List<CartItem> cartItemList=new ArrayList<>();
 
-        CartItem cartItem=CartItem.builder()
+        CartItem Item=CartItem.builder()
                 .item(item)
                 .count(cartItemDto.getCount())
                 .build();
-        cartItemList.add(cartItem);
+        cartItemList.add(Item);
 
         Cart cart=Cart.builder()
                 .user(user)
                 .cartItems(cartItemList)
                 .build();
+
+        Item.setCart(cart); //연관관계 편의 메서드
+
         cartRepository.save(cart);
     }
 

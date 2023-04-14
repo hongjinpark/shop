@@ -21,21 +21,19 @@ public class Cart extends BaseEntity {
     @JoinColumn(name="user_id")
     private User user;
 
-
-
-    @Builder
-    public static Cart createCart(User user) {
-
-        Cart cart;
-        cart = Cart.builder()
-                .user(user)
-                .build();
-
-        return cart;
-    }
-
     @OneToMany(mappedBy = "cart" ,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems = new ArrayList<>();
+
+//    @Builder
+//    public static Cart createCart(User user,List<CartItem> cartItems) {
+//
+//        Cart cart = Cart.builder()
+//                .user(user)
+//                .cartItems(new ArrayList<>())
+//                .build();
+//
+//        return cart;
+//    }
 
     @Builder
     private Cart(User user,List<CartItem> cartItems){
