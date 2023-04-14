@@ -35,8 +35,10 @@ public class OrderController {
         return new ResponseEntity(result, HttpStatus.OK);
     }*/
 
+
+    //주문
     @PostMapping
-    public @ResponseBody ResponseEntity order(@RequestBody @Valid OrderDto orderDto, BindingResult bindingResult, Principal principal) {
+    public ResponseEntity order(@RequestBody @Valid OrderDto orderDto, BindingResult bindingResult, Principal principal) {
 
         if(bindingResult.hasErrors()) {
 
@@ -50,11 +52,23 @@ public class OrderController {
         }
 
         // email 추후에 수정
-        String email = /*principal.getName();*/ "test";
+        String email = /*principal.getName();*/ "test01@naver.com";
         Long orderId;
         orderId = orderService.order(orderDto, email);
 
         return new ResponseEntity<Long>(orderId, HttpStatus.OK);
+    }
+
+    //유저 주문 목록 조회
+    @GetMapping("/{orderId}")
+    public ResponseEntity orderHist(@PathVariable Long itemId, Principal principal) {
+
+        // email 추후에 수정
+        String email = /*principal.getName();*/ "test01@naver.com";
+
+        List orderHistList = orderService.getOrderList(itemId);
+
+        return new ResponseEntity(orderHistList, HttpStatus.OK);
     }
 
 }

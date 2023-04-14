@@ -31,9 +31,6 @@ public class Item extends BaseEntity{
     @Column(nullable = false)
     private int stockNumber; //재고수량
 
-    @Column(nullable = false)
-    private String imgUrl; //상품 이미지 경로
-
     @Lob
     @Column(nullable = false)
     private String itemDetail; //상품 상세 설명
@@ -49,8 +46,7 @@ public class Item extends BaseEntity{
 
 
     @Builder
-    public Item(String imgUrl,String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus) {
-        this.imgUrl=imgUrl;    //이미지경로
+    public Item(String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus) {
         this.itemName = itemName;
         this.price = price;
         this.stockNumber = stockNumber;
@@ -58,8 +54,7 @@ public class Item extends BaseEntity{
         this.itemSellStatus=itemSellStatus;
     }
 
-    public void updateItem(String itemImg,String itemName, int price, int stockNumber, String itemDetail){
-        this.imgUrl=itemImg;    //이미지경로
+    public void updateItem(String itemName, int price, int stockNumber, String itemDetail){
         this.itemName=itemName;
         this.price=price;
         this.stockNumber=stockNumber;

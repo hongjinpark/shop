@@ -12,17 +12,19 @@ import com.example.hong.repository.OrderItemRepository;
 import com.example.hong.repository.OrderRepository;
 import com.example.hong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class OrderService {
 
 
@@ -40,12 +42,7 @@ public class OrderService {
         User user = userRepository.findByEmail(email);
         List<OrderItem> orderItemList = new ArrayList<>();
 
-
-        OrderItem orderItem = OrderItem.builder()
-                .item(item)
-                .count(orderDto.getCount())
-                .orderPrice(item.getPrice())
-                .build();
+        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), orderDto.getCount());
         orderItemList.add(orderItem);
 
         LocalDateTime orderDate = LocalDateTime.now();
@@ -56,6 +53,14 @@ public class OrderService {
         orderRepository.save(order);
 
         return order.getId();
+    }
+
+    @Transactional(readOnly = true)
+    public List getOrderList(Long orderId) {
+
+        List orderHistList = orderRepository.findOrderList(orderId);
+
+        return orderHistList;
     }
 
     //Mybatis

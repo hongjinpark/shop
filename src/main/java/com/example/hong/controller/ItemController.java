@@ -5,6 +5,9 @@ import com.example.hong.entity.Item;
 import com.example.hong.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,14 +23,16 @@ public class ItemController {
 
     //상품등록
     @PostMapping("/new")
-    public Item newItem(@RequestBody ItemDto itemDto){
-        return itemService.createItem(itemDto);
+    public Item newItem(@RequestPart ItemDto itemDto, @RequestPart List<MultipartFile> itemImgFileList) throws Exception {
+
+        return itemService.createItem(itemDto, itemImgFileList);
     }
 
     //상품 수정
     @PutMapping("/update/{itemId}")
-    public Item updateItem(@PathVariable Long itemId, @RequestBody ItemDto itemDto){
-        return itemService.updateItem(itemId,itemDto);
+    public Item updateItem(@PathVariable Long itemId, @RequestBody ItemDto itemDto, @RequestParam List<MultipartFile> itemImgFileList) throws Exception {
+
+        return itemService.updateItem(itemId, itemDto, itemImgFileList);
     }
 
     //상품 삭제

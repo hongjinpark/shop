@@ -9,7 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -47,7 +46,7 @@ public class Order extends BaseEntity{
         this.orderStatus = orderStatus;
 
         // 연관관계 편의 메소드
-        OrderItem.builder().order(this).build();
+        /*OrderItem.builder().order(this).build();*/
 
     }
 

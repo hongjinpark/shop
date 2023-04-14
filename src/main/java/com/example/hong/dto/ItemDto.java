@@ -7,8 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.modelmapper.ModelMapper;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -26,10 +30,22 @@ public class ItemDto {
     @NotEmpty(message = "상품 상세 설명은 필수 입력 값입니다.")
     private String itemDetail; //상품 상세 설명
 
-    @NotEmpty(message = "상품 이미지 경로를 입력 해주세요.")
-    private String imgUrl; //상품 이미지 경로
-    
     private ItemSellStatus itemSellStatus;
+
+    private List<ItemImgDto> itemImgDtoList = new ArrayList<>();
+
+    private List<Long> itemImgIds = new ArrayList<>();
+    private static ModelMapper modelMapper = new ModelMapper();
+
+    public Item createItem() {
+
+        return modelMapper.map(this, Item.class);
+    }
+
+    public static Item of(Item item) {
+
+        return modelMapper.map(item, Item.class);
+    }
 
     public Item toEntity(){
         return Item.builder()
@@ -38,7 +54,6 @@ public class ItemDto {
                 .stockNumber(stockNumber)
                 .itemDetail(itemDetail)
                 .itemSellStatus(ItemSellStatus.SELL)
-                .imgUrl(imgUrl)
                 .build();
     }
 }
