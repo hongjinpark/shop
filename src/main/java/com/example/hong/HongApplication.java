@@ -9,8 +9,9 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
 
-@SpringBootApplication
+
 @EnableJpaAuditing
+@SpringBootApplication
 public class HongApplication {
 
 	public static void main(String[] args) {

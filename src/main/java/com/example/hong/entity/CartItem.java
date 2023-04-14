@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class CartItem extends BaseEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_item_id")
     private Long id;
 
@@ -27,18 +27,29 @@ public class CartItem extends BaseEntity {
     private Item item;
 
     private int count;
+//    @Builder
+//    public static CartItem createCartItem(Cart cart, Item item, int count) {
+//
+//        CartItem cartItem;
+//
+//        cartItem = CartItem.builder()
+//                .cart(cart)
+//                .item(item)
+//                .count(count)
+//                .build();
+//
+//        return cartItem;
+//    }
     @Builder
-    public static CartItem createCartItem(Cart cart, Item item, int count) {
+    public CartItem(Cart cart,Item item,int count){
+           this.cart=cart;
+           this.item=item;
+           this.count=count;
+    }
 
-        CartItem cartItem;
-
-        cartItem = CartItem.builder()
-                .cart(cart)
-                .item(item)
-                .count(count)
-                .build();
-
-        return cartItem;
+    public void setCart(Cart cart){ //연관관계 편의 메서드
+        this.cart=cart;
+        cart.getCartItems().add(this);
     }
 
     public void addCount(int count) {
@@ -47,6 +58,7 @@ public class CartItem extends BaseEntity {
     }
 
     public void updateCount(int count) {
+
 
         this.count = count;
     }

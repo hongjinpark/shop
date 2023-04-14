@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "cart")
@@ -19,15 +21,23 @@ public class Cart extends BaseEntity {
     @JoinColumn(name="user_id")
     private User user;
 
+    @OneToMany(mappedBy = "cart" ,cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItem> cartItems = new ArrayList<>();
+
+//    @Builder
+//    public static Cart createCart(User user,List<CartItem> cartItems) {
+//
+//        Cart cart = Cart.builder()
+//                .user(user)
+//                .cartItems(new ArrayList<>())
+//                .build();
+//
+//        return cart;
+//    }
 
     @Builder
-    public static Cart createCart(User user) {
-
-        Cart cart;
-        cart = Cart.builder()
-                .user(user)
-                .build();
-
-        return cart;
+    private Cart(User user,List<CartItem> cartItems){
+        this.user=user;
+        this.cartItems=cartItems;
     }
 }

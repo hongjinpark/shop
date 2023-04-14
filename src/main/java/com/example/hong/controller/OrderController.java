@@ -61,12 +61,13 @@ public class OrderController {
 
     //유저 주문 목록 조회
     @GetMapping("/{orderId}")
-    public ResponseEntity orderHist(@PathVariable Long itemId, Principal principal) {
+    public ResponseEntity orderHist(@PathVariable Long orderId, Principal principal) {
 
+        // 미완성
         // email 추후에 수정
         String email = /*principal.getName();*/ "test01@naver.com";
 
-        List orderHistList = orderService.getOrderList(itemId);
+        List orderHistList = orderService.getOrderList(orderId);
 
         return new ResponseEntity(orderHistList, HttpStatus.OK);
     }
