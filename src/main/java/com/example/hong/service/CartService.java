@@ -18,11 +18,18 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class CartService {
     private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
 
+//    개인 cartitemlist
+//    public List<Cartitem> getCartItemList(String email){}
+
+//    개인 cartitem
+//    public Cartitem getCartItem(String email){}
     public void insertCart(CartItemDto cartItemDto,String email){
 
         Item item=itemRepository.findById(cartItemDto.getItemId()).orElseThrow(EntityNotFoundException::new);
@@ -44,5 +51,16 @@ public class CartService {
 
         cartRepository.save(cart);
     }
+
+    @Transactional
+    public void updateCart(Long id,int count){
+        CartItem cartItem=cartItemRepository.findByCart_id(id);
+        cartItem.updateCount(count);}
+    @Transactional
+    public void deleteCart(Long id){
+        cartRepository.deleteById(id);
+    }
+
+
 
 }
