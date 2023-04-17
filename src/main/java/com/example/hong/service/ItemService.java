@@ -28,6 +28,11 @@ public class ItemService {
         return itemRepository.findById(itemId).orElseThrow(IllegalArgumentException::new);
     }
 
+    //전체 상품조회
+    public List<Item> selectAllItem() {
+        return itemRepository.findAll();
+    }
+
     //상품 등록
     @Transactional
     public Item createItem(ItemDto itemDto, List<MultipartFile> itemImgFileList) throws Exception {

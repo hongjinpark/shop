@@ -3,9 +3,12 @@ package com.example.hong.dto;
 
 import com.example.hong.entity.User;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Getter
 @NoArgsConstructor
@@ -13,18 +16,22 @@ import javax.validation.constraints.Email;
 @Builder
 public class UserDto {
 
-
-
-    private String id;
-//    @Email(message = "올바른 이메일 주소를 입력해주세요")
+    @NotEmpty(message = "이메일은 필수 입력 값입니다.")
+    @Email(message = "이메일 형식으로 입력해주세요")
     private String email;
+
+    @NotBlank(message = "이름은 필수 입력 값입니다.")
     private String name;
+
+    @NotEmpty(message = "주소는 필수 입력 값입니다.")
     private String address;
+
+    @NotEmpty(message = "비밀번호는 필수 입력 값입니다.")
+    @Length(min=8, max=16, message = "비밀번호는 8자 이상, 16자 이하로 입력해주세요")
     private String password;
 
     public User toEntity(){
         return User.builder()
-                .id(id)
                 .email(email)
                 .name(name)
                 .address(address)
