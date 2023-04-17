@@ -28,10 +28,16 @@ public class BookController {
         List<Book> result = bookMapper.getAllBook();
         return ResponseEntity.ok(result);
     }
-
+    // book 조회
     @GetMapping("/{id}")
     public Book getBook(@PathVariable int id) {
         return bookService.getBook(id);
+    }
+
+    // book 추가(insert)
+    @PostMapping("my")
+    public void insertBook(@RequestBody BookDto bookDto) {
+        bookService.insertBook(bookDto);
     }
 
     @PostMapping
@@ -39,6 +45,7 @@ public class BookController {
         return bookService.save(bookDto);
     }
 
+    // book 업데이트
     @PutMapping("/{id}")
     public Book update(@PathVariable int id , @RequestBody BookDto bookDto, BindingResult bindingResult) {
         return bookService.update(id, bookDto);

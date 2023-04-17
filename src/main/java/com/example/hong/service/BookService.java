@@ -57,4 +57,11 @@ public class BookService {
 
         return bookMapper.getBookName(name);
     }
+
+    // insert, update 리턴값은 int, void
+    public void insertBook(BookDto bookDto) {
+        Book book = bookDto.toEntity();
+
+        bookMapper.insertBook(book);
+    }
 }
