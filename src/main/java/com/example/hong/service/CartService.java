@@ -1,9 +1,11 @@
 package com.example.hong.service;
 
 
-import com.example.hong.dto.BookDto;
 import com.example.hong.dto.CartItemDto;
-import com.example.hong.entity.*;
+import com.example.hong.entity.Cart;
+import com.example.hong.entity.CartItem;
+import com.example.hong.entity.Item;
+import com.example.hong.entity.User;
 import com.example.hong.repository.CartItemRepository;
 import com.example.hong.repository.CartRepository;
 import com.example.hong.repository.ItemRepository;
@@ -50,6 +52,11 @@ public class CartService {
         Item.setCart(cart); //연관관계 편의 메서드
 
         cartRepository.save(cart);
+    }
+
+    @Transactional
+    public List<CartItemDto> findAllCartAndUser(int count) {
+        return cartRepository.findAllCartAndUser(count);
     }
 
     @Transactional

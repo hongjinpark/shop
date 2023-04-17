@@ -1,13 +1,14 @@
 package com.example.hong.controller;
 
 import com.example.hong.dto.CartItemDto;
-import com.example.hong.entity.Cart;
 import com.example.hong.service.CartService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,6 +16,14 @@ import java.security.Principal;
 public class CartItemController {
 
     private final CartService cartService;
+
+    @GetMapping("/cartCount")
+    public ResponseEntity cartAndUser(@RequestParam int count) {
+
+        List<CartItemDto> result = cartService.findAllCartAndUser(count);
+
+        return new ResponseEntity(result, HttpStatus.OK);
+    }
 
     @PostMapping("/new")
     public ResponseEntity postCart(@RequestBody CartItemDto cartItemDto, Principal principal){
