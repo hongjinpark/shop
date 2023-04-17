@@ -10,4 +10,9 @@
     <select id="getBookName" parameterType="String" resultType="HashMap">
         SELECT * FROM book WHERE name = #{name}
     </select>
+
+    <insert id="insertBook">
+        INSERT INTO book (name, title, price, publisher)
+        VALUES (#{name}, #{title}, #{price}, #{publisher})
+    </insert>
 </mapper>

@@ -14,4 +14,6 @@ public interface BookMapper {
     List<Book> getAllBook();
 
     Map<String, Object> getBookName(String name);
+
+    void insertBook(Book book);
 }
