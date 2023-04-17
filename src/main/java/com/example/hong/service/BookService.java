@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -65,7 +66,7 @@ public class BookService {
         bookMapper.insertBook(book);
     }
 
-    public Map<String, Object> getBookPrice(String price) {
+    public List<Map<String, Object>> getBookPrice(String price) {
         return bookMapper.getBookPrice(price);
     }
 }

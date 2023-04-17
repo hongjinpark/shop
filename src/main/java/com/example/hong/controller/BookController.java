@@ -65,7 +65,7 @@ public class BookController {
 
     @GetMapping("/price")
     public ResponseEntity getPrice(@RequestParam String price) {
-        Map<String, Object> result = bookService.getBookPrice(price);
+        List<Map<String, Object>> result = bookService.getBookPrice(price);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 

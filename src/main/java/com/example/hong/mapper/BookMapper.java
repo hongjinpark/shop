@@ -19,5 +19,5 @@ public interface BookMapper {
 
     void delete(int id);
 
-    Map<String, Object> getBookPrice(String price);
+    List<Map<String, Object>> getBookPrice(String price);
 }

@@ -19,7 +19,7 @@
         DELETE FROM book where book_id = #{id}
     </delete>
 
-    <select id="getBookPrice" parameterType="String" resultMap="HashMap">
-        SELECT * FROM book WHERE price <![CDATA[<=]]> #{price}
+    <select id="getBookPrice" parameterType="String" resultType="HashMap">
+        SELECT * FROM book WHERE price <![CDATA[>=]]> #{price}
     </select>
 </mapper>
