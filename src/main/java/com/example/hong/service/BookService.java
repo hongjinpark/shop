@@ -44,13 +44,13 @@ public class BookService {
     }
 
     public Book getBook(int id) {
+
         return bookRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
-    public void delete(int id) {
-        bookRepository.deleteById(id);
+    public void delete(int id){
+        bookMapper.delete(id);
     }
-
     //Mybatis
 
     public Map<String, Object> getBookName(String name) {
@@ -63,5 +63,9 @@ public class BookService {
         Book book = bookDto.toEntity();
 
         bookMapper.insertBook(book);
+    }
+
+    public Map<String, Object> getBookPrice(String price) {
+        return bookMapper.getBookPrice(price);
     }
 }
