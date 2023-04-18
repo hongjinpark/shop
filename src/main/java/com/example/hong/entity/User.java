@@ -17,8 +17,9 @@ import java.util.List;
 public class User extends BaseEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private String id;
+    private Long id;
 
     private String email;
     private String name;
@@ -27,11 +28,12 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<Board> board=new ArrayList<>();
 
     @Builder
-    public User(String id, String email,String name,String address ,String password) {
+    public User(Long id, String email,String name,String address ,String password) {
         this.id = id;
         this.email = email;
         this.name = name;
