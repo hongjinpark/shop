@@ -11,6 +11,7 @@ import java.util.List;
 import static com.example.hong.entity.QCartItem.cartItem;
 import static com.example.hong.entity.QItem.item;
 
+
 @Repository
 @RequiredArgsConstructor
 public class CartCustomRepositoryImpl implements CartCustomRepository{
@@ -28,5 +29,4 @@ public class CartCustomRepositoryImpl implements CartCustomRepository{
                 .where(cartItem.count.gt(count))
                 .fetch();
     }
-
 }

@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hong.mapper.BookMapper">
-    <select id="getAllBook" parameterType="book" resultType="book">
+    <select id="getAllBook">
         SELECT * FROM book
     </select>
 
@@ -15,4 +15,11 @@
         INSERT INTO book (name, title, price, publisher)
         VALUES (#{name}, #{title}, #{price}, #{publisher})
     </insert>
+    <delete id="delete">
+        DELETE FROM book where book_id = #{id}
+    </delete>
+
+    <select id="getBookPrice" parameterType="String" resultType="HashMap">
+        SELECT * FROM book WHERE price <![CDATA[>=]]> #{price}
+    </select>
 </mapper>

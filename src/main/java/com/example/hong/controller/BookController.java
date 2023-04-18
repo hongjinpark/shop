@@ -25,7 +25,7 @@ public class BookController {
 
     @GetMapping
     public ResponseEntity getAllBook() {
-        List<Book> result = bookMapper.getAllBook();
+        Map<String, Object> result = bookMapper.getAllBook();
         return ResponseEntity.ok(result);
     }
     // book 조회
@@ -51,16 +51,21 @@ public class BookController {
         return bookService.update(id, bookDto);
     }
 
+    // book 삭제
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable int id) {
+    public void delete(@PathVariable int id){
         bookService.delete(id);
     }
 
     @GetMapping("/mapper")
     public ResponseEntity getBook(@RequestParam String name) {
         Map<String, Object> result = bookService.getBookName(name);
+        return new ResponseEntity(result, HttpStatus.OK);
+    }
 
+    @GetMapping("/price")
+    public ResponseEntity getPrice(@RequestParam String price) {
+        List<Map<String, Object>> result = bookService.getBookPrice(price);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 

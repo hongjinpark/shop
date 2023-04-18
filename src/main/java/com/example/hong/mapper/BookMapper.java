@@ -11,9 +11,13 @@ import java.util.Map;
 @Repository
 public interface BookMapper {
 
-    List<Book> getAllBook();
+    Map<String, Object> getAllBook();
 
     Map<String, Object> getBookName(String name);
 
     void insertBook(Book book);
+
+    void delete(int id);
+
+    List<Map<String, Object>> getBookPrice(String price);
 }
