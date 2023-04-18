@@ -38,9 +38,11 @@ public class CartItemController {
 //    @GetMapping("/list")
 //    public ResponseEntity getCartItemList(Principal principal){
 //    }
-//    @GetMapping("/{id}/cart-to-order")
-//    public ResponseEntity cartToOrder(@PathVariable Long id,Principal principal){
-//        return ResponseEntity.ok().build();}
+    @PostMapping("/{id}/cart-to-order")
+    public ResponseEntity cartToOrder(@PathVariable Long id,Principal principal){
+        String email="test01@naver.com";
+        cartService.cartToOrder(id,email);
+        return ResponseEntity.ok().build();}
 
     @PatchMapping("/{id}")
     public ResponseEntity updateCart(@PathVariable Long id,@RequestParam int count){

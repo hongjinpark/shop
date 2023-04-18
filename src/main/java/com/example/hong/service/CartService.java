@@ -1,20 +1,16 @@
 package com.example.hong.service;
 
 
+import com.example.hong.constant.OrderStatus;
 import com.example.hong.dto.CartItemDto;
-import com.example.hong.entity.Cart;
-import com.example.hong.entity.CartItem;
-import com.example.hong.entity.Item;
-import com.example.hong.entity.User;
-import com.example.hong.repository.CartItemRepository;
-import com.example.hong.repository.CartRepository;
-import com.example.hong.repository.ItemRepository;
-import com.example.hong.repository.UserRepository;
+import com.example.hong.entity.*;
+import com.example.hong.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +22,8 @@ public class CartService {
     private final CartItemRepository cartItemRepository;
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
+    private final OrderRepository orderRepository;
+
 
 //    개인 cartitemlist
 //    public List<Cartitem> getCartItemList(String email){}
@@ -59,6 +57,24 @@ public class CartService {
         return cartRepository.findAllCartAndUser(count);
     }
 
+    @Transactional
+    public void cartToOrder(Long cartId,String email){
+        CartItem cartItem=cartItemRepository.findByCart_id(cartId);
+        Item item=itemRepository.findById(cartItem.getItem().getId()).get();
+        User user=userRepository.findByEmail(email);
+
+        List<OrderItem> orderItemList = new ArrayList<>();
+
+        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), cartItem.getCount());
+        orderItemList.add(orderItem);
+
+        LocalDateTime orderDate = LocalDateTime.now();
+        OrderStatus orderStatus = OrderStatus.ORDER;
+
+        Order order = Order.createOrder(user, orderDate, orderStatus, orderItemList);
+        orderRepository.save(order);
+        cartRepository.deleteById(cartItem.getCart().getId());
+    }
     @Transactional
     public void updateCart(Long id,int count){
         CartItem cartItem=cartItemRepository.findByCart_id(id);
