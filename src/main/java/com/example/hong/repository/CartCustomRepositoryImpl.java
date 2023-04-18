@@ -19,8 +19,10 @@ public class CartCustomRepositoryImpl implements CartCustomRepository{
     @Override
     public List<CartItemDto> findAllCartAndUser(int count) {
         return queryFactory.select(Projections.fields(CartItemDto.class,
+                cartItem.id.as("cartItemId"),
                 cartItem.count,
-                item.id))
+                cartItem.item.id.as("itemId"),
+                cartItem.cart.user.id.as("userId")))
                 .from(cartItem)
                 .innerJoin(cartItem.item, item)
                 .where(cartItem.count.gt(count))
