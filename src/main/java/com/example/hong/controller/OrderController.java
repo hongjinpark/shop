@@ -2,6 +2,7 @@ package com.example.hong.controller;
 
 
 import com.example.hong.dto.OrderDto;
+import com.example.hong.dto.OrderHistDto;
 import com.example.hong.mapper.OrderMapper;
 import com.example.hong.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -60,16 +61,23 @@ public class OrderController {
     }
 
     //유저 주문 목록 조회
-    @GetMapping("/{orderId}")
-    public ResponseEntity orderHist(@PathVariable Long orderId, Principal principal) {
+    @GetMapping
+    public ResponseEntity orderHist(Principal principal) {
 
         // 미완성
         // email 추후에 수정
         String email = /*principal.getName();*/ "test01@naver.com";
 
-        List orderHistList = orderService.getOrderList(orderId);
+        List<OrderHistDto> orderHistList = orderService.getOrderList(email);
 
         return new ResponseEntity(orderHistList, HttpStatus.OK);
+    }
+
+    @PostMapping("/cancel/{orderId}")
+    public ResponseEntity cancelOrder(@PathVariable Long orderId, Principal principal) {
+
+        orderService.cancelOrder(orderId);
+        return new ResponseEntity(orderId, HttpStatus.OK);
     }
 
 }

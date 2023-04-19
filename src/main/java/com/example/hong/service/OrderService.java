@@ -3,14 +3,10 @@ package com.example.hong.service;
 
 import com.example.hong.constant.OrderStatus;
 import com.example.hong.dto.OrderDto;
-import com.example.hong.entity.Item;
-import com.example.hong.entity.Order;
-import com.example.hong.entity.OrderItem;
-import com.example.hong.entity.User;
-import com.example.hong.repository.ItemRepository;
-import com.example.hong.repository.OrderItemRepository;
-import com.example.hong.repository.OrderRepository;
-import com.example.hong.repository.UserRepository;
+import com.example.hong.dto.OrderHistDto;
+import com.example.hong.dto.OrderItemDto;
+import com.example.hong.entity.*;
+import com.example.hong.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,8 +28,11 @@ public class OrderService {
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
+    private final ItemImgRepository itemImgRepository;
 
     //Jpa
+
+    //주문
     public Long order(OrderDto orderDto, String email) {
 
         Item item = itemRepository.findById(orderDto.getItemId())
@@ -55,12 +54,36 @@ public class OrderService {
         return order.getId();
     }
 
+    //주문 목록 조회
     @Transactional(readOnly = true)
-    public List getOrderList(Long orderId) {
+    public List<OrderHistDto> getOrderList(String email) {
 
-        List orderHistList = orderRepository.findOrderList(orderId);
+        List<Order> orders = orderRepository.findOrders(email);
 
-        return orderHistList;
+        List<OrderHistDto> orderHistDtos = new ArrayList<>();
+
+        for (Order order : orders) {
+
+            OrderHistDto orderHistDto = new OrderHistDto(order);
+            List<OrderItem> orderItems = order.getOrderItems();
+            for (OrderItem orderItem : orderItems) {
+
+                ItemImg itemImg = itemImgRepository.findByItemIdAndRepImgYn(orderItem.getItem().getId(), "Y");
+                OrderItemDto orderItemDto = new OrderItemDto(orderItem, itemImg.getImgUrl());
+                orderHistDto.addOrderItemDto(orderItemDto);
+            }
+
+            orderHistDtos.add(orderHistDto);
+        }
+
+        return orderHistDtos;
+    }
+
+    public void cancelOrder(Long orderId) {
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(EntityNotFoundException::new);
+        order.cancelOrder();
     }
 
     //Mybatis

@@ -1,5 +1,15 @@
 package com.example.hong.constant;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
 public enum Role {
-    ADMIN,USER
+
+    USER("ROLE_USER", "사용자"),
+    ADMIN("ROLE_ADMIN", "관리자");
+
+    private final String key;
+    private final String title;
 }

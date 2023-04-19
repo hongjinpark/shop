@@ -1,8 +1,12 @@
 package com.example.hong.dto;
 
 
+import com.example.hong.constant.Role;
 import com.example.hong.entity.User;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -30,12 +34,15 @@ public class UserDto {
     @Length(min=8, max=16, message = "비밀번호는 8자 이상, 16자 이하로 입력해주세요")
     private String password;
 
+    private Role role;
+
     public User toEntity(){
         return User.builder()
                 .email(email)
                 .name(name)
                 .address(address)
                 .password(password)
+                .role(Role.USER)
                 .build();
     }
 

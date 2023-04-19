@@ -9,8 +9,9 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    @Query(value = "SELECT o.id, o.orderDate, o.orderStatus FROM Order o WHERE o.id = :id")
-    List findOrderList(@Param("orderId") Long id);
+    @Query(value = "SELECT o FROM Order o WHERE o.user.email = :email ORDER BY o.orderDate DESC")
+    List findOrders(@Param("email") String email);
 
-
+    @Query(value = "select count(o) from Order o where o.user.email = :email")
+    Long countOrder(@Param("email") String email);
 }

@@ -1,10 +1,8 @@
 package com.example.hong.dto;
 
 
-import com.example.hong.entity.Item;
 import com.example.hong.entity.OrderItem;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,18 +11,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrderItemDto {
 
-    private Item item; //item 아이디
+    private String itemName; //상품명
     private int count; //주문 수량
     private int orderPrice; //주문 금액
     private String imgUrl; //상품 이미지 경로
 
-    @Builder
-    public OrderItem toEntity(){
+    public OrderItemDto(OrderItem orderItem, String imgUrl) {
 
-        return OrderItem.builder()
-                .item(item)
-                .orderPrice(orderPrice)
-                .count(count)
-                .build();
+        this.itemName = orderItem.getItem().getItemName();
+        this.count = orderItem.getCount();
+        this.orderPrice = orderItem.getOrderPrice();
+        this.imgUrl = imgUrl;
     }
 }

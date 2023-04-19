@@ -1,15 +1,20 @@
 package com.example.hong.service;
 
 
+import com.example.hong.config.JwtTokenProvider;
+import com.example.hong.config.auth.PrincipalDetail;
 import com.example.hong.dto.UserDto;
 import com.example.hong.entity.User;
 import com.example.hong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -18,6 +23,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final AuthenticationManager authenticationManager;
 
 
     public List<User> selectUser() {
@@ -28,46 +35,40 @@ public class UserService {
 
         userDto.encodePassword(passwordEncoder);
         User user = userDto.toEntity();
+
+        //이메일 중복 검사
+        validateDuplicateMember(user);
         return userRepository.save(user);
 
     }
 
-    public boolean checkPw(String id, UserDto userDto) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 id가 없습니다. id=" + id));
-        boolean flag;
+    @Transactional
+    public Long updateUser(Long id, UserDto userDto, PrincipalDetail principalDetail) {
+        userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
 
-        if (passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
-
-            log.info("password = {}", userDto.getPassword());
-            log.info("비밀번호 일치");
-
-            flag = true;
-        } else {
-
-            log.info("password = {}", userDto.getPassword());
-            log.info("비밀번호 불일치");
-
-            flag = false;
-        }
-
-        return flag;
-    }
-
-    public User updatePw(String id, UserDto userDto) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 id가 없습니다. id=" + id));
-
-        //평문 비밀번호
-        log.info(userDto.getPassword());
+        User user = userDto.toEntity();
         userDto.encodePassword(passwordEncoder);
-        user.updatePw(userDto.getPassword());
 
-        //암호화된 비밀번호
-        log.info(userDto.getPassword());
-
-        return userRepository.save(user);
+        principalDetail.setUser(user); //추가
+        return user.getId();
     }
 
-    public void deleteUser(String id) {
+    public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+
+    //jwt 토큰 값 가져오기
+    private String getJwtToken(User user, PrincipalDetail principalDetail) {
+        return jwtTokenProvider.createToken(user.getName(), principalDetail.getAuthorities()
+                .stream().map(Object::toString).collect(Collectors.toList()));
+    }
+
+    private void validateDuplicateMember(User user) {
+
+        User findUser = userRepository.findByEmail(user.getEmail());
+        if(findUser != null) {
+            throw new IllegalStateException("이미 가입된 회원입니다.");
+        }
     }
 }

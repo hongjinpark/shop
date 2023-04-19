@@ -1,8 +1,12 @@
 package com.example.hong.dto;
 
 import com.example.hong.constant.OrderStatus;
-import lombok.Builder;
+import com.example.hong.entity.Order;
 import lombok.Getter;
+
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public class OrderHistDto {
@@ -11,6 +15,8 @@ public class OrderHistDto {
     private String orderDate; //주문날짜
     private OrderStatus orderStatus; //주문 상태
 
+    //주문 상품 리스트
+    private List<OrderItemDto> orderItemDtoList = new ArrayList<>();
 
    /* @Builder
     public OrderHistDto(Long orderId, String orderDate, OrderStatus orderStatus) {
@@ -20,10 +26,15 @@ public class OrderHistDto {
         this.orderStatus = order.getOrderStatus();
     }*/
 
-    @Builder
-    public OrderHistDto(Long orderId, String orderDate, OrderStatus orderStatus) {
-        this.orderId = orderId;
-        this.orderDate = orderDate;
-        this.orderStatus = orderStatus;
+    public OrderHistDto(Order order) {
+
+        this.orderId = order.getId();
+        this.orderDate = order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        this.orderStatus = order.getOrderStatus();
+    }
+
+    public void addOrderItemDto(OrderItemDto orderItemDto) {
+
+        orderItemDtoList.add(orderItemDto);
     }
 }

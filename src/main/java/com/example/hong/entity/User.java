@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Table(name = "user")
-public class User extends BaseEntity {
+public class User extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,20 +30,29 @@ public class User extends BaseEntity {
     private Role role;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
-    private List<Board> board=new ArrayList<>();
+    private List<Board> board = new ArrayList<>();
 
     @Builder
-    public User(Long id, String email,String name,String address ,String password) {
+    public User(Long id, String email,String name,String address ,String password, Role role) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.address=address;
         this.password = password;
-        this.role=Role.USER;
+        this.role = Role.USER;
+    }
+
+    public String getRoleKey() {
+        return this.role.getKey();
     }
 
     public void updatePw(String password) {
         this.password = password;
+    }
+
+    public void update(String password, String name) {
+        this.password = password;
+        this.name = name;
     }
 
 }
