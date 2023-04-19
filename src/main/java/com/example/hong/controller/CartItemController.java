@@ -32,12 +32,8 @@ public class CartItemController {
         return ResponseEntity.ok().build();
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity getCartItem(@PathVariable Long id, Principal principal){
-//    }
-//    @GetMapping("/list")
-//    public ResponseEntity getCartItemList(Principal principal){
-//    }
+
+
     @PostMapping("/{id}/cart-to-order")
     public ResponseEntity cartToOrder(@PathVariable Long id,Principal principal){
         String email="test01@naver.com";
@@ -55,5 +51,17 @@ public class CartItemController {
         return ResponseEntity.ok().build(); }
 
 
+    @GetMapping("/list")
+    public ResponseEntity getCartItemList(Principal principal){
+        String email ="test01@naver.com";
+        List<CartItemDto> result = cartService.getCartItemList(email);
+        return new ResponseEntity(result, HttpStatus.OK);
+    }
 
+    @GetMapping("/list/{id}")
+    public ResponseEntity getCartItem(@PathVariable Long id, Principal principal){
+        String email ="test01@naver.com";
+        CartItemDto result=cartService.getCartItem(email,id);
+        return new ResponseEntity(result, HttpStatus.OK);
+    }
 }

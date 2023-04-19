@@ -25,11 +25,10 @@ public class CartService {
     private final OrderRepository orderRepository;
 
 
-//    개인 cartitemlist
-//    public List<Cartitem> getCartItemList(String email){}
 
-//    개인 cartitem
-//    public Cartitem getCartItem(String email){}
+
+
+    @Transactional
     public void insertCart(CartItemDto cartItemDto,String email){
 
         Item item=itemRepository.findById(cartItemDto.getItemId()).orElseThrow(EntityNotFoundException::new);
@@ -85,5 +84,14 @@ public class CartService {
     }
 
 
-
+    //    개인 cartitemlist
+    public List<CartItemDto> getCartItemList(String email){
+        User user = userRepository.findByEmail(email);
+        return cartRepository.findAllCartOfUser(user.getId());
+    }
+    //    개인 cartitem
+    public CartItemDto getCartItem(String email,Long id){
+        User user=userRepository.findByEmail(email);
+        return cartRepository.findCartOfUser(user.getId(),id);
+    }
 }
