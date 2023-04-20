@@ -8,6 +8,8 @@ import com.example.hong.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +32,14 @@ public class UserController {
         return userService.selectUser();
     }
 
-    //신규 계정 생성
+    //로그인
+    @PostMapping("/login")
+    public ResponseEntity loginUser(@RequestBody UserDto userDto) {
+        UserDto result = userService.loginUser(userDto);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    //신규 계정 생성 (회원가입)
     @PostMapping("/new")
     public User postUser(@RequestBody UserDto userDto) {
         return userService.createUser(userDto);

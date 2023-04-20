@@ -20,6 +20,7 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 public class UserDto {
 
+    private Long id;
     @NotEmpty(message = "이메일은 필수 입력 값입니다.")
     @Email(message = "이메일 형식으로 입력해주세요")
     private String email;
@@ -36,6 +37,8 @@ public class UserDto {
 
     private Role role;
 
+    private String token;
+
     public User toEntity(){
         return User.builder()
                 .email(email)
@@ -45,6 +48,7 @@ public class UserDto {
                 .role(Role.USER)
                 .build();
     }
+
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(password);
