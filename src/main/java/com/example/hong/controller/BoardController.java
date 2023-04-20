@@ -1,5 +1,6 @@
 package com.example.hong.controller;
 
+import com.example.hong.config.auth.PrincipalDetail;
 import com.example.hong.dto.BoardDto;
 import com.example.hong.entity.Board;
 import com.example.hong.repository.UserRepository;
@@ -7,6 +8,7 @@ import com.example.hong.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,22 +21,18 @@ public class BoardController {
     private final UserRepository userRepository;
 
     @GetMapping("/user/my-board") //개인 문의 리스트(유저 자기 자신 것)
-    public ResponseEntity<List<BoardDto>> getBoardList() {
-    String email="test01@naver.com"; /*principal.getName();*/
-        List<BoardDto> board = boardService.getIndividualBoard(email);
+    public ResponseEntity<List<BoardDto>> getBoardList(@AuthenticationPrincipal PrincipalDetail principalDetail) {
+        List<BoardDto> board = boardService.getIndividualBoard(principalDetail.getEmail());
         return new ResponseEntity<List<BoardDto>>(board, HttpStatus.OK);}
 
     @GetMapping("/user/my-board/{id}") //개인 문의(유저 자기 자신 것)
-    public ResponseEntity<BoardDto> getBoard(@PathVariable Long id){
-        String name="test01@naver.com"; /*principal.getName();*/
-        return new ResponseEntity<BoardDto>(boardService.getBoard(id,name),HttpStatus.OK);
+    public ResponseEntity<BoardDto> getBoard(@PathVariable Long id,@AuthenticationPrincipal PrincipalDetail principalDetail){
+        return new ResponseEntity<BoardDto>(boardService.getBoard(id,principalDetail.getEmail()),HttpStatus.OK);
     }
 
     @PostMapping("/user/new")    //유저 문의 create
-    public ResponseEntity postBoard(@RequestBody BoardDto boardDto){
-        String userId="test01@naver.com";
-
-        Board board = boardService.createBoard(boardDto,userRepository.findByEmail(userId));
+    public ResponseEntity postBoard(@RequestBody BoardDto boardDto,@AuthenticationPrincipal PrincipalDetail principalDetail){
+        Board board = boardService.createBoard(boardDto,userRepository.findByEmail(principalDetail.getEmail()));
         return ResponseEntity.ok().build(); }
 
     @DeleteMapping("/user/my-board/{id}")
@@ -50,15 +48,16 @@ public class BoardController {
     }
 
     @GetMapping("/admin/{id}")  //유저 개인문의 보기(관리자용)
-    public ResponseEntity<BoardDto> getAdminBoard(@PathVariable Long id){
-        String name="test01@naver.com";
-        return new ResponseEntity<BoardDto>(boardService.getBoard(id,name),HttpStatus.OK);
+    public ResponseEntity<BoardDto> getAdminBoard(@PathVariable Long id,
+                                                  @AuthenticationPrincipal PrincipalDetail principalDetail){
+        return new ResponseEntity<BoardDto>(boardService.getBoard(id, principalDetail.getEmail()),HttpStatus.OK);
     }
 
     @PostMapping("/admin/answer/{id}")  //문의 답장(관리자)
-    public ResponseEntity postAnswer(@PathVariable Long id,@RequestParam String answer){
-        String emailtest="test01@naver.com";
-        Board board = boardService.insertAnswer(id, emailtest, answer);
+    public ResponseEntity postAnswer(@PathVariable Long id,
+                                     @RequestParam String answer,
+                                     @AuthenticationPrincipal PrincipalDetail principalDetail){
+        Board board = boardService.insertAnswer(id, principalDetail.getEmail(), answer);
         return new ResponseEntity<Board>(board,HttpStatus.OK);
     }
 
