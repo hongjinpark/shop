@@ -1,6 +1,7 @@
 package com.example.hong.controller;
 
 
+import com.example.hong.config.auth.PrincipalDetail;
 import com.example.hong.dto.OrderDto;
 import com.example.hong.dto.OrderHistDto;
 import com.example.hong.mapper.OrderMapper;
@@ -8,6 +9,7 @@ import com.example.hong.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +41,7 @@ public class OrderController {
 
     //주문
     @PostMapping
-    public ResponseEntity order(@RequestBody @Valid OrderDto orderDto, BindingResult bindingResult, Principal principal) {
+    public ResponseEntity order(@RequestBody @Valid OrderDto orderDto, BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetail principalDetail) {
 
         if(bindingResult.hasErrors()) {
 
@@ -52,23 +54,21 @@ public class OrderController {
             return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
         }
 
-        // email 추후에 수정
-        String email = /*principal.getName();*/ "test01@naver.com";
         Long orderId;
-        orderId = orderService.order(orderDto, email);
+        orderId = orderService.order(orderDto, principalDetail);
 
         return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }
 
     //유저 주문 목록 조회
     @GetMapping
-    public ResponseEntity orderHist(Principal principal) {
+    public ResponseEntity orderHist(@AuthenticationPrincipal PrincipalDetail principalDetail) {
 
         // 미완성
         // email 추후에 수정
         String email = /*principal.getName();*/ "test01@naver.com";
 
-        List<OrderHistDto> orderHistList = orderService.getOrderList(email);
+        List<OrderHistDto> orderHistList = orderService.getOrderList(principalDetail);
 
         return new ResponseEntity(orderHistList, HttpStatus.OK);
     }

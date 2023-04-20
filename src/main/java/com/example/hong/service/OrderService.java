@@ -1,6 +1,7 @@
 package com.example.hong.service;
 
 
+import com.example.hong.config.auth.PrincipalDetail;
 import com.example.hong.constant.OrderStatus;
 import com.example.hong.dto.OrderDto;
 import com.example.hong.dto.OrderHistDto;
@@ -9,6 +10,7 @@ import com.example.hong.entity.*;
 import com.example.hong.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,12 +35,12 @@ public class OrderService {
     //Jpa
 
     //주문
-    public Long order(OrderDto orderDto, String email) {
+    public Long order(OrderDto orderDto, @AuthenticationPrincipal PrincipalDetail principalDetail) {
 
         Item item = itemRepository.findById(orderDto.getItemId())
                 .orElseThrow(EntityNotFoundException::new);
 
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(principalDetail.getEmail());
         List<OrderItem> orderItemList = new ArrayList<>();
 
         OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), orderDto.getCount());
@@ -56,9 +58,9 @@ public class OrderService {
 
     //주문 목록 조회
     @Transactional(readOnly = true)
-    public List<OrderHistDto> getOrderList(String email) {
+    public List<OrderHistDto> getOrderList(PrincipalDetail principalDetail) {
 
-        List<Order> orders = orderRepository.findOrders(email);
+        List<Order> orders = orderRepository.findOrders(principalDetail.getEmail());
 
         List<OrderHistDto> orderHistDtos = new ArrayList<>();
 

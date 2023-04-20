@@ -1,6 +1,7 @@
 package com.example.hong.config;
 
 
+import com.example.hong.config.auth.PrincipalDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +31,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtProvider jwtProvider;
-
+    private final PrincipalDetailService principalDetailService;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -40,6 +41,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .userDetailsService(principalDetailService)
                 // ID, Password 문자열을 Base64로 인코딩하여 전달하는 구조
                 .httpBasic().disable()
                 // 쿠키 기반이 아닌 JWT 기반이므로 사용하지 않음

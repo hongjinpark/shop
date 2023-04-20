@@ -27,7 +27,7 @@ public class UserController {
     Environment env;
 
     //모든 계정 조회
-    @GetMapping("/")
+    @GetMapping
     public List<User> getUser() {
         return userService.selectUser();
     }
