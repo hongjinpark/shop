@@ -16,25 +16,19 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/cart")
 public class CartItemController {
-
     private final CartService cartService;
 
-    @GetMapping("/cartCount")
+    @GetMapping("/cartCount")   //나중에 삭제
     public ResponseEntity cartAndUser(@RequestParam int count) {
-
         List<CartItemDto> result = cartService.findAllCartAndUser(count);
 
-        return new ResponseEntity(result, HttpStatus.OK);
-    }
+        return new ResponseEntity(result, HttpStatus.OK); }
 
     @PostMapping("/new")
-    public ResponseEntity postCart(@RequestBody CartItemDto cartItemDto,
+    public ResponseEntity createCart(@RequestBody CartItemDto cartItemDto,
                                    @AuthenticationPrincipal PrincipalDetail principalDetail){
-        cartService.insertCart(cartItemDto, principalDetail.getEmail());
-        return ResponseEntity.ok().build();
-    }
-
-
+        cartService.createCart(cartItemDto, principalDetail.getEmail());
+        return ResponseEntity.ok().build(); }
 
     @PostMapping("/{id}/cart-to-order")
     public ResponseEntity cartToOrder(@PathVariable Long id,
@@ -43,8 +37,8 @@ public class CartItemController {
         return ResponseEntity.ok().build();}
 
     @PatchMapping("/{id}")
-    public ResponseEntity updateCart(@PathVariable Long id,@RequestParam int count){
-        cartService.updateCart(id, count);
+    public ResponseEntity modifyCart(@PathVariable Long id,@RequestParam int count){
+        cartService.modifyCart(id, count);
         return ResponseEntity.ok().build(); }
 
     @DeleteMapping("/{id}")//id값은 cartId
@@ -56,12 +50,10 @@ public class CartItemController {
     @GetMapping("/list")
     public ResponseEntity getCartItemList(@AuthenticationPrincipal PrincipalDetail principalDetail){
         List<CartItemDto> result = cartService.getCartItemList(principalDetail.getEmail());
-        return new ResponseEntity(result, HttpStatus.OK);
-    }
+        return new ResponseEntity(result, HttpStatus.OK); }
 
     @GetMapping("/list/{id}")   //id값은 cartItemId
     public ResponseEntity getCartItem(@PathVariable Long id,@AuthenticationPrincipal PrincipalDetail principalDetail){
         CartItemDto result=cartService.getCartItem(principalDetail.getEmail(), id);
-        return new ResponseEntity(result, HttpStatus.OK);
-    }
+        return new ResponseEntity(result, HttpStatus.OK); }
 }

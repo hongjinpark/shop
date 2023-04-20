@@ -13,7 +13,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class Cart extends BaseEntity {
-
     @Id
     @Column(name = "cart_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,17 +24,6 @@ public class Cart extends BaseEntity {
 
     @OneToMany(mappedBy = "cart" ,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems = new ArrayList<>();
-
-//    @Builder
-//    public static Cart createCart(User user,List<CartItem> cartItems) {
-//
-//        Cart cart = Cart.builder()
-//                .user(user)
-//                .cartItems(new ArrayList<>())
-//                .build();
-//
-//        return cart;
-//    }
 
     @Builder
     private Cart(User user,List<CartItem> cartItems){

@@ -5,8 +5,6 @@ import com.example.hong.dto.CartItemDto;
 import java.util.List;
 
 public interface CartCustomRepository {
-
-    public List<CartItemDto> findAllCartAndUser(int count);
     public List<CartItemDto> findAllCartOfUser(Long id);
     public CartItemDto findCartOfUser(Long id,Long cartItemId);
 }

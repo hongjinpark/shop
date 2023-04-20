@@ -20,17 +20,6 @@ public class CartCustomRepositoryImpl implements CartCustomRepository{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<CartItemDto> findAllCartAndUser(int count) {
-        return queryFactory.select(Projections.fields(CartItemDto.class,
-                cartItem.id.as("cartItemId"),
-                cartItem.count,
-                cartItem.item.id.as("itemId"),
-                cartItem.cart.user.id.as("userId")))
-                .from(cartItem)
-                .innerJoin(cartItem.item, item)
-                .where(cartItem.count.gt(count))
-                .fetch(); }
-    @Override
     public List<CartItemDto> findAllCartOfUser(Long id) {
         return queryFactory.select(Projections.fields(CartItemDto.class,
                         cartItem.id.as("cartItemId"),

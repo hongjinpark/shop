@@ -12,7 +12,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name="cart_item")
 public class CartItem extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_item_id")
@@ -27,19 +26,7 @@ public class CartItem extends BaseEntity {
     private Item item;
 
     private int count;
-//    @Builder
-//    public static CartItem createCartItem(Cart cart, Item item, int count) {
-//
-//        CartItem cartItem;
-//
-//        cartItem = CartItem.builder()
-//                .cart(cart)
-//                .item(item)
-//                .count(count)
-//                .build();
-//
-//        return cartItem;
-//    }
+
     @Builder
     public CartItem(Cart cart,Item item,int count){
            this.cart=cart;

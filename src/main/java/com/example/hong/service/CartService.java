@@ -24,13 +24,8 @@ public class CartService {
     private final ItemRepository itemRepository;
     private final OrderRepository orderRepository;
 
-
-
-
-
     @Transactional
-    public void insertCart(CartItemDto cartItemDto,String email){
-
+    public void createCart(CartItemDto cartItemDto,String email){
         Item item=itemRepository.findById(cartItemDto.getItemId()).orElseThrow(EntityNotFoundException::new);
         User user=userRepository.findByEmail(email);
         List<CartItem> cartItemList=new ArrayList<>();
@@ -48,15 +43,9 @@ public class CartService {
 
         Item.setCart(cart); //연관관계 편의 메서드
 
-        cartRepository.save(cart);
-    }
+        cartRepository.save(cart); }
 
-    @Transactional
-    public List<CartItemDto> findAllCartAndUser(int count) {
-        return cartRepository.findAllCartAndUser(count);
-    }
-
-    @Transactional
+    @Transactional  //카트 -> 주문
     public void cartToOrder(Long cartId,String email){
         CartItem cartItem=cartItemRepository.findByCart_id(cartId);
         Item item=itemRepository.findById(cartItem.getItem().getId()).get();
@@ -72,26 +61,22 @@ public class CartService {
 
         Order order = Order.createOrder(user, orderDate, orderStatus, orderItemList);
         orderRepository.save(order);
-        cartRepository.deleteById(cartItem.getCart().getId());
-    }
-    @Transactional
-    public void updateCart(Long id,int count){
+        cartRepository.deleteById(cartItem.getCart().getId()); }
+
+    @Transactional  //수정
+    public void modifyCart(Long id,int count){
         CartItem cartItem=cartItemRepository.findByCart_id(id);
-        cartItem.updateCount(count);}
-    @Transactional
+        cartItem.updateCount(count); }
+
+    @Transactional  //삭제
     public void deleteCart(Long id){
-        cartRepository.deleteById(id);
-    }
+        cartRepository.deleteById(id); }
 
-
-    //    개인 cartitemlist
-    public List<CartItemDto> getCartItemList(String email){
+    public List<CartItemDto> getCartItemList(String email){  //    개인 cartitemlist
         User user = userRepository.findByEmail(email);
-        return cartRepository.findAllCartOfUser(user.getId());
-    }
-    //    개인 cartitem
-    public CartItemDto getCartItem(String email,Long id){
+        return cartRepository.findAllCartOfUser(user.getId()); }
+
+    public CartItemDto getCartItem(String email,Long id){   //    개인 cartitem
         User user=userRepository.findByEmail(email);
-        return cartRepository.findCartOfUser(user.getId(),id);
-    }
+        return cartRepository.findCartOfUser(user.getId(),id); }
 }
