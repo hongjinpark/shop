@@ -18,35 +18,6 @@ import java.util.List;
 public class CartItemController {
     private final CartService cartService;
 
-    @GetMapping("/cartCount")   //나중에 삭제
-    public ResponseEntity cartAndUser(@RequestParam int count) {
-        List<CartItemDto> result = cartService.findAllCartAndUser(count);
-
-        return new ResponseEntity(result, HttpStatus.OK); }
-
-    @PostMapping("/new")
-    public ResponseEntity createCart(@RequestBody CartItemDto cartItemDto,
-                                   @AuthenticationPrincipal PrincipalDetail principalDetail){
-        cartService.createCart(cartItemDto, principalDetail.getEmail());
-        return ResponseEntity.ok().build(); }
-
-    @PostMapping("/{id}/cart-to-order")
-    public ResponseEntity cartToOrder(@PathVariable Long id,
-                                      @AuthenticationPrincipal PrincipalDetail principalDetail){
-        cartService.cartToOrder(id, principalDetail.getEmail());
-        return ResponseEntity.ok().build();}
-
-    @PatchMapping("/{id}")
-    public ResponseEntity modifyCart(@PathVariable Long id,@RequestParam int count){
-        cartService.modifyCart(id, count);
-        return ResponseEntity.ok().build(); }
-
-    @DeleteMapping("/{id}")//id값은 cartId
-    public ResponseEntity deleteCart(@PathVariable Long id){
-        cartService.deleteCart(id);
-        return ResponseEntity.ok().build(); }
-
-
     @GetMapping("/list")
     public ResponseEntity getCartItemList(@AuthenticationPrincipal PrincipalDetail principalDetail){
         List<CartItemDto> result = cartService.getCartItemList(principalDetail.getEmail());
@@ -56,4 +27,26 @@ public class CartItemController {
     public ResponseEntity getCartItem(@PathVariable Long id,@AuthenticationPrincipal PrincipalDetail principalDetail){
         CartItemDto result=cartService.getCartItem(principalDetail.getEmail(), id);
         return new ResponseEntity(result, HttpStatus.OK); }
+
+    @PostMapping("/new")
+    public ResponseEntity createCart(@RequestBody CartItemDto cartItemDto,
+                                     @AuthenticationPrincipal PrincipalDetail principalDetail){
+        cartService.createCart(cartItemDto, principalDetail.getEmail());
+        return ResponseEntity.ok().build(); }
+
+    @PatchMapping("/list/{id}")
+    public ResponseEntity modifyCart(@PathVariable Long id,@RequestParam int count){
+        cartService.modifyCart(id, count);
+        return ResponseEntity.ok().build(); }
+
+    @DeleteMapping("/list/{id}")//id값은 cartId
+    public ResponseEntity deleteCart(@PathVariable Long id){
+        cartService.deleteCart(id);
+        return ResponseEntity.ok().build(); }
+
+    @PostMapping("/list/{id}/cart-to-order")
+    public ResponseEntity cartToOrder(@PathVariable Long id,
+                                      @AuthenticationPrincipal PrincipalDetail principalDetail){
+        cartService.cartToOrder(id, principalDetail.getEmail());
+        return ResponseEntity.ok().build();}
 }

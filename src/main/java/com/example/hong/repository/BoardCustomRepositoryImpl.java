@@ -17,7 +17,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository{
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public BoardDto findBoardByName(Long id,String email){
+    public BoardDto findBoardByEmailOfUser(Long id,String email){
         return jpaQueryFactory.select(Projections.fields(BoardDto.class,
                 board.name,
                 board.title,
@@ -30,7 +30,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository{
     }
 
     @Override
-    public List<BoardDto> findBoardAllByEmailIndividual(String email){
+    public List<BoardDto> findBoardAllByEmailOfUser(String email){
         return jpaQueryFactory.select(Projections.fields(BoardDto.class,
                 board.name,
                 board.title,
