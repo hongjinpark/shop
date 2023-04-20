@@ -24,8 +24,15 @@ public class BoardService {
     private final UserRepository userRepository;
 
     @Transactional
-    public Board createBoard(BoardDto boardDto){
-        Board board=boardDto.toEntity();
+    public Board createBoard(BoardDto boardDto,User userId){
+//        Board board=boardDto.toEntity();
+        Board board= Board.builder()
+                .title(boardDto.getTitle())
+                .name(boardDto.getName())
+                .content(boardDto.getContent())
+                .questionStatus(QuestionStatus.WAIT)
+                .user(userId)
+                .build();
         return boardRepository.save(board);
     }
 
@@ -33,12 +40,12 @@ public class BoardService {
         return boardRepository.findAllByOrderByIdDesc();
     }   //관리자용(문의 전체 리스트)
 
-    public Board getBoard(Long id){
-        return boardRepository.findById(id).get();
+    public BoardDto getBoard(Long id,String email){ //querydsl처리 관리자용 1개 문의 조회
+        return boardRepository.findBoardByName(id,email);
     }
 
-    public List<Board> getIndividualBoard(String name){   //문의 조회(사용자용)
-        return boardRepository.findAllByNameOrderByIdDesc(name);
+    public List<BoardDto> getIndividualBoard(String email){   //문의 조회(사용자용)
+        return boardRepository.findBoardAllByEmailIndividual(email);
     }   //유저용(자신 문의내용 전체 불러오기)
 
     @Transactional

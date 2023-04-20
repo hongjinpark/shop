@@ -2,6 +2,7 @@ package com.example.hong.dto;
 
 import com.example.hong.constant.QuestionStatus;
 import com.example.hong.entity.Board;
+import com.example.hong.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,13 +26,14 @@ public class BoardDto {
 
     private QuestionStatus questionStatus;
 
-    public Board toEntity(){
-        return Board.builder()
-                .name(name)
-                .title(title)
-                .content(content)
-                .questionStatus(QuestionStatus.WAIT)
-                .build();
-
-    }
+//    public Board toEntity(){
+//        return Board.builder()
+//                .name(name)
+//                .title(title)
+//                .content(content)
+//                .user(user)
+//                .questionStatus(QuestionStatus.WAIT)
+//                .build();
+//
+//    }
 }

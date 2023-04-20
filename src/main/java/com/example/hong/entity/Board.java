@@ -38,11 +38,12 @@ public class Board {
     private User user;
 
     @Builder
-    public Board(String name,String title,String content,QuestionStatus questionStatus){
+    public Board(String name,String title,String content,QuestionStatus questionStatus,User user){
         this.name=name;
         this.title=title;
         this.content=content;
         this.questionStatus=questionStatus;
+        this.user=user;
     }
 
     public void insertAnswer(String answer){
