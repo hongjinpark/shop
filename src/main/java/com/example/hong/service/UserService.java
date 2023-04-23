@@ -101,4 +101,8 @@ public class UserService {
 
         return result;
     }
+
+    public User getUser(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
+    }
 }

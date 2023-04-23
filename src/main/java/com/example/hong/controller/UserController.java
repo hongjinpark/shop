@@ -34,6 +34,11 @@ public class UserController {
     public List<User> getUser() {
         return userService.selectUser();
     }
+    // 계정 조회
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable Long id) {
+        return userService.getUser(id);
+    }
 
     //로그인
     @PostMapping("/login")
