@@ -31,4 +31,16 @@ public class Room {
     public void setRoom(String roomName) {
         this.roomName = roomName;
     }
+
+    public Object getRoomNumber() {
+        return null;
+    }
+
+    public Object getRoomPassword() {
+        return null;
+    }
+
+    public void update(String roomName, Object roomNumber, Object roomPassword) {
+
+    }
 }

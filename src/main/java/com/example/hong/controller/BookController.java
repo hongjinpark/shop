@@ -31,6 +31,7 @@ public class BookController {
     // book 조회
     @GetMapping("/{id}")
     public Book getBook(@PathVariable int id) {
+
         return bookService.getBook(id);
     }
 
@@ -68,5 +69,6 @@ public class BookController {
         List<Map<String, Object>> result = bookService.getBookPrice(price);
         return new ResponseEntity(result, HttpStatus.OK);
     }
+
 
 }
