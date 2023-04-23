@@ -1,5 +1,6 @@
 package com.example.hong.dto;
 
+import com.example.hong.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.lang.Nullable;
@@ -20,5 +21,11 @@ public class OrderDto {
     @Max(value = 999, message = "최대 주문 수량은 200개 입니다.")
     private int count;
 
+    public OrderDto(Order order) {
+    }
 
+
+    public void addOrderItemDto(OrderItemDto orderItemDto) {
+
+    }
 }

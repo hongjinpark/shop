@@ -83,4 +83,12 @@ public class Order extends BaseEntity{
             orderItem.cancel();
         }
     }
+
+    public void updateOrder(int count) {
+
+            for(OrderItem orderItem : orderItems) {
+
+                orderItem.update(count);
+            }
+    }
 }

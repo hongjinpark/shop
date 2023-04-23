@@ -73,10 +73,43 @@ public class OrderController {
         return new ResponseEntity(orderHistList, HttpStatus.OK);
     }
 
+    // 주문 취소
     @PostMapping("/cancel/{orderId}")
     public ResponseEntity cancelOrder(@PathVariable Long orderId, Principal principal) {
 
         orderService.cancelOrder(orderId);
+        return new ResponseEntity(orderId, HttpStatus.OK);
+    }
+    // 주문 조회
+    @GetMapping("/{orderId}")
+    public ResponseEntity getOrder(@PathVariable Long orderId) {
+
+        OrderDto orderDto = orderService.getOrder(orderId);
+        return new ResponseEntity(orderDto, HttpStatus.OK);
+    }
+    // 주문 수정
+    @PostMapping("/modify/{orderId}")
+    public ResponseEntity modifyOrder(@PathVariable Long orderId, @RequestBody @Valid OrderDto orderDto, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+
+            StringBuilder sb = new StringBuilder();
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            for(FieldError fieldError : fieldErrors) {
+
+                sb.append(fieldError.getDefaultMessage());
+            }
+            return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
+        }
+
+        orderService.modifyOrder(orderId, orderDto);
+        return new ResponseEntity(orderId, HttpStatus.OK);
+    }
+    // 주문 삭제
+    @DeleteMapping("/{orderId}")
+    public ResponseEntity deleteOrder(@PathVariable Long orderId) {
+
+        orderService.deleteOrder(orderId);
         return new ResponseEntity(orderId, HttpStatus.OK);
     }
 
