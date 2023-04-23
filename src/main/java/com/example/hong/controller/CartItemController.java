@@ -23,6 +23,15 @@ public class CartItemController {
         List<CartItemDto> result = cartService.getCartItemList(principalDetail.getEmail());
         return new ResponseEntity(result, HttpStatus.OK); }
 
+    // principalDetail.getEmail() : 로그인한 사용자의 이메일
+    // 로그인한 사용자의 이메일을 통해 장바구니 테이블에서 해당 사용자의 장바구니 목록을 가져온다.
+    // 장바구니 목록은 CartItemDto로 이루어진 List이다.
+    // CartItemDto는 장바구니 테이블과 상품 테이블의 데이터를 조합한 데이터이다.
+    @GetMapping("/list/total-price") // 총 가격
+    public ResponseEntity getTotalPrice(@AuthenticationPrincipal PrincipalDetail principalDetail){
+        int result = cartService.getTotalPrice(principalDetail.getEmail());
+        return new ResponseEntity(result, HttpStatus.OK); }
+
     @GetMapping("/list/{id}")   //id값은 cartItemId
     public ResponseEntity getCartItem(@PathVariable Long id,@AuthenticationPrincipal PrincipalDetail principalDetail){
         CartItemDto result=cartService.getCartItem(principalDetail.getEmail(), id);
@@ -49,4 +58,8 @@ public class CartItemController {
                                       @AuthenticationPrincipal PrincipalDetail principalDetail){
         cartService.cartToOrder(id, principalDetail.getEmail());
         return ResponseEntity.ok().build();}
+    // 장바구니에서 주문하기 버튼을 누르면 주문 테이블에 데이터가 추가되고 장바구니 테이블에서 삭제된다.
+    // 주문 테이블에 데이터가 추가되는 것은 orderService에서 처리한다.
+    // 장바구니 테이블에서 삭제하는 것은 cartService에서 처리한다.
+
 }
