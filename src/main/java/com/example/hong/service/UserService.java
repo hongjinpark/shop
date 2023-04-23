@@ -94,6 +94,7 @@ public class UserService {
                 .name(user.getName())
                 .email(user.getEmail())
                 .password(user.getPassword())
+                .provider("user")
                 .role(user.getRole())
                 .token(jwtProvider.createToken(user.getEmail(), user.getRole()))
                 .build();

@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -35,6 +36,9 @@ public class UserDto {
     @Length(min=8, max=16, message = "비밀번호는 8자 이상, 16자 이하로 입력해주세요")
     private String password;
 
+    //일반 사용자 User
+    private String provider;
+
     private Role role;
 
     private String token;
@@ -45,7 +49,16 @@ public class UserDto {
                 .name(name)
                 .address(address)
                 .password(password)
+                .provider("user")
                 .role(Role.USER)
+                .build();
+    }
+
+    public static UserDto toDto(OAuth2User oAuth2User) {
+        var attributes = oAuth2User.getAttributes();
+        return UserDto.builder()
+                .email((String)attributes.get("email"))
+                .name((String)attributes.get("name"))
                 .build();
     }
 

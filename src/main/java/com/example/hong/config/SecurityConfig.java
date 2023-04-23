@@ -1,6 +1,8 @@
 package com.example.hong.config;
 
 
+import com.example.hong.config.auth.CustomOAuth2UserService;
+import com.example.hong.config.auth.OAuth2SuccessHandler;
 import com.example.hong.config.auth.PrincipalDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,9 +35,11 @@ public class SecurityConfig {
 
     private final JwtProvider jwtProvider;
     private final PrincipalDetailService principalDetailService;
+    private final CustomOAuth2UserService oAuth2UserService;
+    private final OAuth2SuccessHandler successHandler;
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -46,6 +51,7 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 // 쿠키 기반이 아닌 JWT 기반이므로 사용하지 않음
                 .csrf().disable()
+
                 // CORS 설정
                 .cors(c -> {
                             CorsConfigurationSource source = request -> {
@@ -73,7 +79,10 @@ public class SecurityConfig {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 // /user 로 시작하는 요청은 USER 권한이 있는 유저에게만 허용
                 .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/token/**").permitAll()
                 .anyRequest().denyAll()
+                .and()
+                .logout().logoutSuccessUrl("/") //logout 요청시 홈으로 이동 - 기본 logout url = "/logout"
                 .and()
                 // JWT 인증 필터 적용
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
@@ -98,7 +107,11 @@ public class SecurityConfig {
                         response.setContentType("text/html; charset=UTF-8");
                         response.getWriter().write("인증되지 않은 사용자입니다.");
                     }
-                });
+                })
+                .and()
+                .oauth2Login().loginPage("/token/expired")
+                .successHandler(successHandler)
+                .userInfoEndpoint().userService(oAuth2UserService);
 
         return http.build();
     }
