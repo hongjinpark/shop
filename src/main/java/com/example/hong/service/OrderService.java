@@ -88,40 +88,6 @@ public class OrderService {
         order.cancelOrder();
     }
 
-    public OrderDto getOrder(Long orderId) {
-
-            Order order = orderRepository.findById(orderId)
-                    .orElseThrow(EntityNotFoundException::new);
-
-            OrderDto orderDto = new OrderDto(order);
-
-            List<OrderItem> orderItems = order.getOrderItems();
-            for (OrderItem orderItem : orderItems) {
-
-                ItemImg itemImg = itemImgRepository.findByItemIdAndRepImgYn(orderItem.getItem().getId(), "Y");
-                OrderItemDto orderItemDto = new OrderItemDto(orderItem, itemImg.getImgUrl());
-                orderDto.addOrderItemDto(orderItemDto);
-            }
-
-            return orderDto;
-    }
-
-    public void modifyOrder(Long orderId, OrderDto orderDto) {
-
-            Order order = orderRepository.findById(orderId)
-                    .orElseThrow(EntityNotFoundException::new);
-
-            order.updateOrder(orderDto.getCount());
-    }
-
-    public void deleteOrder(Long orderId) {
-
-                Order order = orderRepository.findById(orderId)
-                        .orElseThrow(EntityNotFoundException::new);
-
-                orderRepository.delete(order);
-    }
-
     //Mybatis
 
 }

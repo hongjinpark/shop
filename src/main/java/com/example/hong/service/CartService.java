@@ -79,9 +79,4 @@ public class CartService {
     public CartItemDto getCartItem(String email,Long id){   //    개인 cartitem
         User user=userRepository.findByEmail(email);
         return cartRepository.findCartOfUser(user.getId(),id); }
-
-    public int getTotalPrice(String email) {
-        User user = userRepository.findByEmail(email);
-        return cartRepository.getTotalPrice(user.getId());
-    }
 }
