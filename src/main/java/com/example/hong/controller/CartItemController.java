@@ -1,6 +1,7 @@
 package com.example.hong.controller;
 
 import com.example.hong.config.auth.PrincipalDetail;
+import com.example.hong.dto.CartDetailDto;
 import com.example.hong.dto.CartItemDto;
 import com.example.hong.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,7 @@ public class CartItemController {
 
     @GetMapping("/list")
     public ResponseEntity getCartItemList(@AuthenticationPrincipal PrincipalDetail principalDetail){
-        List<CartItemDto> result = cartService.getCartItemList(principalDetail.getEmail());
-        return new ResponseEntity(result, HttpStatus.OK); }
-
-    @GetMapping("/list/{id}")   //id값은 cartItemId
-    public ResponseEntity getCartItem(@PathVariable Long id,@AuthenticationPrincipal PrincipalDetail principalDetail){
-        CartItemDto result=cartService.getCartItem(principalDetail.getEmail(), id);
+        List<CartDetailDto> result = cartService.getCartItemList(principalDetail.getEmail());
         return new ResponseEntity(result, HttpStatus.OK); }
 
     @PostMapping("/new")

@@ -2,6 +2,7 @@ package com.example.hong.service;
 
 
 import com.example.hong.constant.OrderStatus;
+import com.example.hong.dto.CartDetailDto;
 import com.example.hong.dto.CartItemDto;
 import com.example.hong.entity.*;
 import com.example.hong.repository.*;
@@ -72,15 +73,9 @@ public class CartService {
     public void deleteCart(Long id){
         cartRepository.deleteById(id); }
 
-    public List<CartItemDto> getCartItemList(String email){  //    개인 cartitemlist
-        User user = userRepository.findByEmail(email);
-        return cartRepository.findAllCartOfUser(user.getId()); }
+    public List<CartDetailDto> getCartItemList(String email){  //    개인 cartitemlist
+        List<CartDetailDto> cartDetailDtoList = new ArrayList<>();
+        cartDetailDtoList = cartItemRepository.findAllCartOfUser(email);
+        return cartDetailDtoList; }
 
-    //List<CartDetailDto> cartDetailDtoList = new ArrayList<>();
-    //cartDetailDtoList = cartItemRepository.findCartDetailDtoList(cart.getId());
-    //return cartDetailDtoList;
-
-    public CartItemDto getCartItem(String email,Long id){   //    개인 cartitem
-        User user=userRepository.findByEmail(email);
-        return cartRepository.findCartOfUser(user.getId(),id); }
 }

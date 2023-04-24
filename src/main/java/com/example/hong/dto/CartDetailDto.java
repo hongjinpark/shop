@@ -1,8 +1,10 @@
 package com.example.hong.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class CartDetailDto {
 
     private Long cartItemId; //장바구니 상품 아이디
