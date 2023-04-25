@@ -9,9 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.example.hong.entity.QCart.cart;
 import static com.example.hong.entity.QCartItem.cartItem;
 import static com.example.hong.entity.QItem.item;
 import static com.example.hong.entity.QItemImg.itemImg;
+import static com.example.hong.entity.QUser.user;
 
 
 @Repository
@@ -23,15 +25,17 @@ public class CartCustomRepositoryImpl implements CartCustomRepository{
     public List<CartDetailDto> findAllCartOfUser(String email) {
         return queryFactory.select(Projections.fields(CartDetailDto.class,
                         cartItem.id.as("cartItemId"),
+                        cartItem.count.as("count"),
                         item.itemName.as("itemNm"),
                         item.price.as("price"),
-                        cartItem.count.as("count"),
                         itemImg.imgUrl.as("imgUrl")))
-                .from(cartItem,itemImg)
-                .join(cartItem.item, item)
-                .where(cartItem.cart.user.email.eq(email)
-                        .and(itemImg.item.id.eq(cartItem.item.id))
-                        .and(itemImg.repImgYn.eq("Y")))
+                .from(cartItem)
+                .innerJoin(cartItem.cart,cart)
+                .innerJoin(cartItem.item,item)
+                .leftJoin(itemImg).on(itemImg.item.id.eq(cartItem.item.id))
+                .leftJoin(cart.user,user)
+                .where(user.email.eq(email),itemImg.repImgYn.eq("Y"))
                 .orderBy(cartItem.regTime.desc())
-                .fetch(); }
+                .fetch();
+    }
 }
