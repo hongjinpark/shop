@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -71,7 +70,7 @@ public class SecurityConfig {
                 // Spring Security 세션 정책 : 세션을 생성 및 사용하지 않음
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                // 조건별로 요청 허용/제한 설정
+                /*// 조건별로 요청 허용/제한 설정
                 .authorizeRequests()
                 // 회원가입과 로그인은 모두 승인 프론트에서 설정
                 .antMatchers("/user/new", "/user/login").permitAll()
@@ -81,7 +80,7 @@ public class SecurityConfig {
                 .antMatchers("/user/**").hasRole("USER")
                 .antMatchers("/token/**").permitAll()
                 .anyRequest().denyAll()
-                .and()
+                .and()*/
                 .logout().logoutSuccessUrl("/") //logout 요청시 홈으로 이동 - 기본 logout url = "/logout"
                 .and()
                 // JWT 인증 필터 적용
