@@ -68,8 +68,8 @@ public class SecurityConfig {
                 // Spring Security 세션 정책 : 세션을 생성 및 사용하지 않음
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                // 조건별로 요청 허용/제한 설정
-              /*  .authorizeRequests()
+             /*   // 조건별로 요청 허용/제한 설정
+                .authorizeRequests()
                 // 회원가입과 로그인은 모두 승인 프론트에서 설정
                 .antMatchers("/user/new", "/user/login").permitAll()
                 // /admin으로 시작하는 요청은 ADMIN 권한이 있는 유저에게만 허용
