@@ -1,6 +1,7 @@
 package com.example.hong.service;
 
 import com.example.hong.dto.ItemDto;
+import com.example.hong.dto.ItemImgDto;
 import com.example.hong.entity.Item;
 import com.example.hong.entity.ItemImg;
 import com.example.hong.repository.ItemImgRepository;
@@ -11,12 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
 @Slf4j
-@Transactional(readOnly = true)
 public class ItemService {
     private final ItemRepository itemRepository;
 
@@ -24,8 +26,24 @@ public class ItemService {
     private final ItemImgRepository itemImgRepository;
 
     //상품 조회
-    public Item selectItem(Long itemId) {
-        return itemRepository.findById(itemId).orElseThrow(IllegalArgumentException::new);
+    @Transactional(readOnly = true)
+    public ItemDto selectItem(Long itemId) {
+
+        List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
+        List<ItemImgDto> itemImgDtoList = new ArrayList<>();
+
+        for(ItemImg itemImg : itemImgList) {
+
+            ItemImgDto itemImgDto = ItemImgDto.of(itemImg);
+            itemImgDtoList.add(itemImgDto);
+        }
+
+        Item item = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
+        ItemDto itemDto = ItemDto.of(item);
+        itemDto.setItemImgDtoList(itemImgDtoList);
+        return itemDto;
+
+       /* return itemRepository.findById(itemId).orElseThrow(IllegalArgumentException::new);*/
     }
 
     //전체 상품조회

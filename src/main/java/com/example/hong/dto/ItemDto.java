@@ -3,10 +3,7 @@ package com.example.hong.dto;
 
 import com.example.hong.constant.ItemSellStatus;
 import com.example.hong.entity.Item;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.modelmapper.ModelMapper;
 
 import javax.validation.constraints.Min;
@@ -15,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -42,9 +40,9 @@ public class ItemDto {
         return modelMapper.map(this, Item.class);
     }
 
-    public static Item of(Item item) {
+    public static ItemDto of(Item item) {
 
-        return modelMapper.map(item, Item.class);
+        return modelMapper.map(item, ItemDto.class);
     }
 
     public Item toEntity(){
@@ -56,4 +54,5 @@ public class ItemDto {
                 .itemSellStatus(ItemSellStatus.SELL)
                 .build();
     }
+
 }

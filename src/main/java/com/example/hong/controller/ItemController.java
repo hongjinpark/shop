@@ -25,7 +25,7 @@ public class ItemController {
 
     //상품조회
     @GetMapping("/{itemId}")
-    public Item itemDtl(@PathVariable Long itemId) {
+    public ItemDto itemDtl(@PathVariable Long itemId) {
 
         return itemService.selectItem(itemId);
     }

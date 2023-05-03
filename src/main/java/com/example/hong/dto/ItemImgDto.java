@@ -2,9 +2,10 @@ package com.example.hong.dto;
 
 import com.example.hong.entity.ItemImg;
 import lombok.Getter;
+import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
-@Getter
+@Getter @Setter
 public class ItemImgDto {
 
     private Long id;
