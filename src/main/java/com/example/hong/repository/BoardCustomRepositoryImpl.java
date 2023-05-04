@@ -42,4 +42,19 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository{
                 .orderBy(board.id.desc())
                 .fetch();
     }
+
+    @Override
+    public List<BoardDto> findBoardAllByEmailOfAdmin(){
+        return jpaQueryFactory.select(Projections.fields(BoardDto.class,
+                        board.name,
+                        board.title,
+                        board.content,
+                        board.questionStatus,
+                        user.email.as("email")))
+                .from(board)
+                .join(board.user,user)
+//                .where(board.name.eq(user.name).and(user.email.eq(email)))
+                .orderBy(board.id.desc())
+                .fetch();
+    }
 }

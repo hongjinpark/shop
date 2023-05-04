@@ -8,4 +8,5 @@ import java.util.List;
 public interface BoardCustomRepository {
     BoardDto findBoardByEmailOfUser(Long id,String email);
     List<BoardDto> findBoardAllByEmailOfUser(String email);
+    List<BoardDto> findBoardAllByEmailOfAdmin();
 }

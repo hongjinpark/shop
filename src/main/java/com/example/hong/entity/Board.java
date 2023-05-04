@@ -34,7 +34,7 @@ public class Board {
     @Enumerated(EnumType.STRING)
     private QuestionStatus questionStatus;
 
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

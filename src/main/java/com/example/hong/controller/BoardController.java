@@ -40,9 +40,9 @@ public class BoardController {
         return ResponseEntity.ok().build(); }
 
     @GetMapping("/admin")      // 유저 전체문의 보기(관리자용)
-    public ResponseEntity<List<Board>> getAdminBoardList(){
-        List<Board> boardList = boardService.getBoardListOfAdmin();
-        return new ResponseEntity<List<Board>>(boardList, HttpStatus.OK); }
+    public ResponseEntity<List<BoardDto>> getAdminBoardList(@AuthenticationPrincipal PrincipalDetail principalDetail){
+        List<BoardDto> boardList = boardService.getBoardListOfAdmin();
+        return new ResponseEntity<List<BoardDto>>(boardList, HttpStatus.OK); }
 
     @GetMapping("/admin/{id}")  //유저 개인문의 보기(관리자용)
     public ResponseEntity<BoardDto> getAdminBoard(@PathVariable Long id,

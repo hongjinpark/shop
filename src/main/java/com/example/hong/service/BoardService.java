@@ -27,7 +27,7 @@ public class BoardService {
     public Board createBoard(BoardDto boardDto,User userId){
         Board board= Board.builder()
                 .title(boardDto.getTitle())
-                .name(boardDto.getName())
+                .name(userId.getEmail())
                 .content(boardDto.getContent())
                 .questionStatus(QuestionStatus.WAIT)
                 .user(userId)
@@ -58,8 +58,8 @@ public class BoardService {
     public BoardDto getBoardOfUser(Long id,String email){ //querydsl처리 관리자용 1개 문의 조회
         return boardRepository.findBoardByEmailOfUser(id,email); }
 
-    public List<Board> getBoardListOfAdmin(){ //전체 문의 조회(관리자용)
-        return boardRepository.findAllByOrderByIdDesc(); }
+    public List<BoardDto> getBoardListOfAdmin(){ //전체 문의 조회(관리자용)
+        return boardRepository.findBoardAllByEmailOfAdmin(); }
 
     public boolean isUserRole(String email){
         User user=userRepository.findByEmail(email);
