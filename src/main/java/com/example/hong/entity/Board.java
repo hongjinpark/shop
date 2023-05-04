@@ -1,6 +1,7 @@
 package com.example.hong.entity;
 
 import com.example.hong.constant.QuestionStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class Board {
     @Enumerated(EnumType.STRING)
     private QuestionStatus questionStatus;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

@@ -35,9 +35,9 @@ public class UserController {
         return userService.selectUser();
     }
     // 계정 조회
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userService.getUser(id);
+    @GetMapping("/info")
+    public User getUser(@AuthenticationPrincipal PrincipalDetail principalDetail) {
+        return userService.getUser(principalDetail);
     }
 
     //로그인
