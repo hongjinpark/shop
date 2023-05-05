@@ -16,5 +16,6 @@
     <mappers>
         <mapper resource="mapper/bookmapper.xml" /> <!-- book 매퍼 등록 -->
         <mapper resource="mapper/ordermapper.xml" /> <!-- person 매퍼 등록 -->
+        <mapper resource="mapper/itemmapper.xml" />
     </mappers>
 </configuration>

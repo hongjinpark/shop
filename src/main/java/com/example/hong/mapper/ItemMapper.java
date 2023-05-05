@@ -10,4 +10,6 @@ import java.util.List;
 public interface ItemMapper {
 
     List<Item> getAllItem();
+
+    List<Item> searchItem(String keyword);
 }

@@ -98,4 +98,10 @@ public class ItemService {
         itemRepository.deleteById(id);
     }
 
+    //상품 검색
+    @Transactional
+    public List<Item> searchItem(String itemName) {
+        return itemRepository.findByItemNameContaining(itemName);
+    }
+
 }
