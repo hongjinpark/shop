@@ -15,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -36,14 +37,15 @@ public class UserController {
     }
     // 계정 조회
     @GetMapping("/info")
-    public User getUser(@AuthenticationPrincipal PrincipalDetail principalDetail) {
+    public UserDto getUser(@AuthenticationPrincipal PrincipalDetail principalDetail) {
         return userService.getUser(principalDetail);
     }
 
     //로그인
     @PostMapping("/login")
-    public ResponseEntity loginUser(@RequestBody UserDto userDto) {
+    public ResponseEntity loginUser(@RequestBody UserDto userDto, HttpServletResponse response) {
         UserDto result = userService.loginUser(userDto);
+        response.setHeader("X-AUTH-TOKEN",result.getToken());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

@@ -62,6 +62,12 @@ public class UserDto {
                 .build();
     }
 
+    public UserDto(User user) {
+        this.email=user.getEmail();
+        this.name=user.getName();
+        this.address=user.getAddress();
+        this.role=user.getRole();
+    }
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(password);

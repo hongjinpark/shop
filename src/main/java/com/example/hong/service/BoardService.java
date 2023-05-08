@@ -27,7 +27,7 @@ public class BoardService {
     public Board createBoard(BoardDto boardDto,User userId){
         Board board= Board.builder()
                 .title(boardDto.getTitle())
-                .name(userId.getEmail())
+                .name(userId.getName())
                 .content(boardDto.getContent())
                 .questionStatus(QuestionStatus.WAIT)
                 .user(userId)
