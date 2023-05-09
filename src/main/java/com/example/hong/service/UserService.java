@@ -104,14 +104,15 @@ public class UserService {
         return result;
     }
 
-    public User getUser(@AuthenticationPrincipal PrincipalDetail principalDetail) {
+    public UserDto getUser(@AuthenticationPrincipal PrincipalDetail principalDetail) {
 
         User userInfo = userRepository.findUser(principalDetail.getEmail());
-
         if(userInfo == null) {
 
             throw new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다. ");
         }
-        return userInfo;
+        UserDto userDto=new UserDto(userInfo);
+
+        return userDto;
     }
 }

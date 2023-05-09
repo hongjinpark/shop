@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class UserController {
     }
     // 계정 조회
     @GetMapping("/info")
-    public User getUser(@AuthenticationPrincipal PrincipalDetail principalDetail) {
+    public UserDto getUser(@AuthenticationPrincipal PrincipalDetail principalDetail) {
         return userService.getUser(principalDetail);
     }
 

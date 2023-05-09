@@ -6,13 +6,14 @@ import com.example.hong.entity.Board;
 import com.example.hong.repository.UserRepository;
 import com.example.hong.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/board")
@@ -22,7 +23,9 @@ public class BoardController {
 
     @GetMapping("/user/my-board") //개인 문의 리스트(유저 자기 자신 것)
     public ResponseEntity<List<BoardDto>> getBoardList(@AuthenticationPrincipal PrincipalDetail principalDetail) {
-        List<BoardDto> board = boardService.getBoardListOfUser(principalDetail.getEmail());
+        log.info("==============================={}",principalDetail.getEmail());
+        List<BoardDto> board = boardService.getBoardListOfUser(principalDetail);
+        log.info("==============================={}",board);
         return new ResponseEntity<List<BoardDto>>(board, HttpStatus.OK);}
 
     @GetMapping("/user/my-board/{id}") //개인 문의(유저 자기 자신 것)
