@@ -98,10 +98,8 @@ public class ItemService {
         itemRepository.deleteById(id);
     }
 
-    //상품 검색
-    @Transactional
+    //mybatis 상품검색
     public List<Item> searchItem(String itemName) {
-        return itemRepository.findByItemNameContaining(itemName);
+        return itemRepository.searchItem(itemName);
     }
-
 }

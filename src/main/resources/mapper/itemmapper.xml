@@ -6,7 +6,7 @@
       <select id="getAllItem" parameterType="itemDto" resultType="HashMap">
           SELECT * FROM item
       </select>
-        <select id="getItemName" parameterType="String" resultType="HashMap">
+        <select id="searchItem" parameterType="itemDto" resultType="HashMap">
             SELECT * FROM item WHERE item_name = #{item_name}
         </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.example.hong.mapper;
 
 
+import com.example.hong.dto.ItemDto;
 import com.example.hong.entity.Item;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,5 +12,6 @@ public interface ItemMapper {
 
     List<Item> getAllItem();
 
-    List<Item> searchItem(String keyword);
+
+    List<Item> searchItem(ItemDto itemDto);
 }
