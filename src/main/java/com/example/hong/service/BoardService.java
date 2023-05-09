@@ -1,5 +1,6 @@
 package com.example.hong.service;
 
+import com.example.hong.config.auth.PrincipalDetail;
 import com.example.hong.constant.QuestionStatus;
 import com.example.hong.constant.Role;
 import com.example.hong.dto.BoardDto;
@@ -9,6 +10,7 @@ import com.example.hong.repository.BoardRepository;
 import com.example.hong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,8 +54,9 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
-    public List<BoardDto> getBoardListOfUser(String email){     //문의 조회(사용자용)
-        return boardRepository.findBoardAllByEmailOfUser(email); }
+    public List<BoardDto> getBoardListOfUser(@AuthenticationPrincipal PrincipalDetail principalDetail){     //문의 조회(사용자용)
+        log.info("=========service===={}",principalDetail.getEmail());
+        return boardRepository.findBoardAllByEmailOfUser(principalDetail.getEmail()); }
 
     public BoardDto getBoardOfUser(Long id,String email){ //querydsl처리 관리자용 1개 문의 조회
         return boardRepository.findBoardByEmailOfUser(id,email); }
