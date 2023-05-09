@@ -61,8 +61,9 @@ public class ItemController {
         itemService.deleteItem(itemId);
     }
     //검색기능
-    @GetMapping("/search")
-    public ResponseEntity<?> searchItem(@RequestParam String keyword) {
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity<?> searchItem(@PathVariable String keyword) {
+
         List<Item> items = itemService.searchItem(keyword);
         resultMap.put("items", items);
 
