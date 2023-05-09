@@ -13,5 +13,4 @@ public interface ItemMapper {
     List<Item> getAllItem();
 
 
-    List<Item> searchItem(ItemDto itemDto);
 }

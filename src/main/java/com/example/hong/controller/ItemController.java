@@ -60,12 +60,10 @@ public class ItemController {
     public void deleteItem(@PathVariable Long itemId){
         itemService.deleteItem(itemId);
     }
-
-
-    // 상품검색
-    @PostMapping("/searchItem")
-    public ResponseEntity<?> searchItem(@RequestBody ItemDto itemDto) {
-        List<Item> items = itemMapper.searchItem(itemDto);
+    //검색기능
+    @GetMapping("/search")
+    public ResponseEntity<?> searchItem(@RequestParam String keyword) {
+        List<Item> items = itemService.searchItem(keyword);
         resultMap.put("items", items);
 
         return new ResponseEntity<>(items, HttpStatus.OK);
