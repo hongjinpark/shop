@@ -16,6 +16,7 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 public class BoardDto {
 
+    private Long id;
     private String name;
 
     @NotEmpty(message = "제목은 필수 입력 값입니다.")
