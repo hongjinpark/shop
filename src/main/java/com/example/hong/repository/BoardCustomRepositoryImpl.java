@@ -32,6 +32,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository{
     @Override
     public List<BoardDto> findBoardAllByEmailOfUser(String email){
         return jpaQueryFactory.select(Projections.fields(BoardDto.class,
+                board.id,
                 board.name,
                 board.title,
                 board.content,
