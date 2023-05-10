@@ -60,14 +60,13 @@ public class ItemController {
     public void deleteItem(@PathVariable Long itemId){
         itemService.deleteItem(itemId);
     }
-    //검색기능
-    @GetMapping("/search/{keyword}")
-    public ResponseEntity<?> searchItem(@PathVariable String keyword) {
+    // mybatis 상품검색
+    @GetMapping("/search/{itemName}")
+    public ResponseEntity<?> searchItem(@PathVariable String itemName) {
 
-        List<Item> items = itemService.searchItem(keyword);
+        List<Item> items = itemMapper.searchItem(itemName);
         resultMap.put("items", items);
 
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
-
 }

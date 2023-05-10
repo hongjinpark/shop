@@ -6,4 +6,7 @@
       <select id="getAllItem" parameterType="itemDto" resultType="HashMap">
           SELECT * FROM item
       </select>
+    <select id="searchItem" parameterType="itemDto" resultType="HashMap">
+        SELECT * FROM item WHERE item_name LIKE CONCAT('%',#{item_name},'%')
+    </select>
 </mapper>

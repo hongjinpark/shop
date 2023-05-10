@@ -98,10 +98,4 @@ public class ItemService {
         itemRepository.deleteById(id);
     }
 
-    @Transactional
-    public List<Item> searchItem(String keyword) {
-        return itemRepository.findByItemNameContaining(keyword);
-    }
-
-    // 상품 검색
 }
