@@ -1,12 +1,11 @@
 package com.example.hong.dto;
 
 import com.example.hong.constant.QuestionStatus;
-import com.example.hong.entity.Board;
-import com.example.hong.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -20,6 +19,7 @@ public class BoardDto {
     private String name;
 
     @NotEmpty(message = "제목은 필수 입력 값입니다.")
+    @Length(max=20, message = "제목은 20자 이하로 작성해주세요.")
     private String title;
 
     @NotEmpty(message = "내용은 필수 입력 값입니다.")
