@@ -54,8 +54,10 @@ public class BoardController {
 
     @PostMapping("/admin/{id}/answer")  //문의 답장(관리자)
     public ResponseEntity inputAnswer(@PathVariable Long id,
-                                     @RequestParam("answer") String answer,
+                                     @RequestBody String answer,
                                      @AuthenticationPrincipal PrincipalDetail principalDetail){
+        log.info("==========answer enter=====");
         Board board = boardService.inputAnswer(id, principalDetail.getEmail(), answer);
+
         return new ResponseEntity<Board>(board,HttpStatus.OK); }
 }

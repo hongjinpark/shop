@@ -22,7 +22,8 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository{
                 board.name,
                 board.title,
                 board.content,
-                board.questionStatus))
+                board.questionStatus,
+                board.answer))
                 .from(board)
                 .join(board.user,user)
                 .where(user.email.eq(email).and(board.id.eq(id)))
@@ -65,7 +66,8 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository{
                         board.name,
                         board.title,
                         board.content,
-                        board.questionStatus))
+                        board.questionStatus,
+                        board.answer))
                 .from(board)
                 .join(board.user,user)
                 .where(board.id.eq(id))
