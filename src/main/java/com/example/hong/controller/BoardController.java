@@ -50,11 +50,11 @@ public class BoardController {
     @GetMapping("/admin/{id}")  //유저 개인문의 보기(관리자용)
     public ResponseEntity<BoardDto> getAdminBoard(@PathVariable Long id,
                                                   @AuthenticationPrincipal PrincipalDetail principalDetail){
-        return new ResponseEntity<BoardDto>(boardService.getBoardOfUser(id, principalDetail.getEmail()),HttpStatus.OK); }
+        return new ResponseEntity<BoardDto>(boardService.getBoardOfAdmin(id, principalDetail.getEmail()),HttpStatus.OK); }
 
     @PostMapping("/admin/{id}/answer")  //문의 답장(관리자)
     public ResponseEntity inputAnswer(@PathVariable Long id,
-                                     @RequestParam String answer,
+                                     @RequestParam("answer") String answer,
                                      @AuthenticationPrincipal PrincipalDetail principalDetail){
         Board board = boardService.inputAnswer(id, principalDetail.getEmail(), answer);
         return new ResponseEntity<Board>(board,HttpStatus.OK); }

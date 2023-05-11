@@ -61,6 +61,9 @@ public class BoardService {
     public BoardDto getBoardOfUser(Long id,String email){ //querydsl처리 관리자용 1개 문의 조회
         return boardRepository.findBoardByEmailOfUser(id,email); }
 
+    public BoardDto getBoardOfAdmin(Long id,String email){ //querydsl처리 관리자용 1개 문의 조회
+        return boardRepository.findBoardByEmailOfAdmin(id,email); }
+
     public List<BoardDto> getBoardListOfAdmin(){ //전체 문의 조회(관리자용)
         return boardRepository.findBoardAllByEmailOfAdmin(); }
 
