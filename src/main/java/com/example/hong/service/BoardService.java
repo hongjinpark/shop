@@ -14,7 +14,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -37,11 +36,13 @@ public class BoardService {
         return boardRepository.save(board); }
 
     @Transactional
-    public Board inputAnswer(Long id,String email,String answer){     //관리자만 문의 답장가능하게
+    public String inputAnswer(Long id,String email,String answer){     //관리자만 문의 답장가능하게
         Board board=boardRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 id가 없습니다. id=" + id));
+
         if (isUserRole(email)){
             board.insertAnswer(answer);
-            return boardRepository.save(board);
+            boardRepository.save(board);
+            return board.getAnswer();
         }else{
             //오류
             log.info("오류구현");
