@@ -53,7 +53,8 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository{
                         board.title,
                         board.content,
                         board.questionStatus,
-                        user.email.as("email")))
+                        user.email.as("email"),
+                        board.answer))
                 .from(board)
                 .join(board.user,user)
 //                .where(board.name.eq(user.name).and(user.email.eq(email)))

@@ -28,6 +28,8 @@ public class BoardDto {
     private QuestionStatus questionStatus;
 
     private String email;
+
+    private String answer;
 //    public Board toEntity(){
 //        return Board.builder()
 //                .name(name)
