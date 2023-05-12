@@ -3,6 +3,7 @@ package com.example.hong.controller;
 import com.example.hong.config.auth.PrincipalDetail;
 import com.example.hong.dto.BoardDto;
 import com.example.hong.entity.Board;
+import com.example.hong.mapper.BoardMapper;
 import com.example.hong.repository.UserRepository;
 import com.example.hong.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -20,6 +24,9 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final UserRepository userRepository;
+    private final BoardMapper boardMapper;
+
+    Map<String, Object> resultMap = new HashMap<String, Object>();
 
     @GetMapping("/user/my-board") //개인 문의 리스트(유저 자기 자신 것)
     public ResponseEntity<List<BoardDto>> getBoardList(@AuthenticationPrincipal PrincipalDetail principalDetail) {
@@ -59,4 +66,13 @@ public class BoardController {
         log.info("==========answer enter=====");
         boardService.inputAnswer(id, principalDetail.getEmail(), answer);
         return new ResponseEntity<Board>(HttpStatus.OK); }
+
+    //mybatis searchBoard
+    @GetMapping("/admin/search/{title}")
+    public ResponseEntity<?> searchBoard(@PathVariable String title){
+        List<Board> boards = boardMapper.searchBoard(title);
+        resultMap.put("boards",boards);
+
+        return new ResponseEntity<>(boards,HttpStatus.OK);
+    }
 }
