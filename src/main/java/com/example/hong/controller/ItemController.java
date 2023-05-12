@@ -35,7 +35,7 @@ public class ItemController {
     public ResponseEntity<?> findAllItem() {
 
 
-        List<Item> items = itemMapper.getAllItem();
+        List<Map<String, Object>> items = itemMapper.getAllItem();
         resultMap.put("items", items);
 
         return new ResponseEntity<>(items, HttpStatus.OK);
