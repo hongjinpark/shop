@@ -2,6 +2,7 @@ package com.example.hong.service;
 
 import com.example.hong.dto.ItemDto;
 import com.example.hong.dto.ItemImgDto;
+import com.example.hong.dto.MainItemDto;
 import com.example.hong.entity.Item;
 import com.example.hong.entity.ItemImg;
 import com.example.hong.repository.ItemImgRepository;
@@ -96,6 +97,14 @@ public class ItemService {
     @Transactional
     public void deleteItem(Long id){
         itemRepository.deleteById(id);
+    }
+
+    @Transactional
+    public List<MainItemDto> getAllItem() {
+
+        List<MainItemDto> items = itemRepository.findAllItemAndImgUrl();
+
+        return items;
     }
 
 }
