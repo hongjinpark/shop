@@ -4,19 +4,47 @@ import com.example.hong.entity.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 @Getter
-public class PrincipalDetail implements UserDetails {
+public class PrincipalDetail implements UserDetails, OAuth2User {
 
     private User user;
+    private Map<String, Object> attributes;
 
+    //일반 로그인 생성자
     public PrincipalDetail(User user) {
         this.user = user;
     }
 
+    //OAuth 로그인 생성자
+    public PrincipalDetail(User user, Map<String, Object> attributes ) {
+        this.user = user;
+        this.attributes = attributes;
+    }
+
+    @Override
+    public <A> A getAttribute(String name) {
+        return OAuth2User.super.getAttribute(name);
+    }
+
+    /**
+     * OAuth2User 인터페이스 메소드
+     */
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    /**
+     * UserDetails 인터페이스 메소드
+     */
+    // 해당 User의 권한을 리턴하는 곳!(role)
+    // SecurityFilterChain에서 권한을 체크할 때 사용됨
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();
@@ -72,5 +100,10 @@ public class PrincipalDetail implements UserDetails {
 
     public void setUser(User userEntity) {
         this.user = user;
+    }
+
+    @Override
+    public String getName() {
+        return null;
     }
 }

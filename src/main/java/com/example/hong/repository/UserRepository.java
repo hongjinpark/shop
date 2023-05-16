@@ -15,8 +15,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmailAndProvider(String email, String provider);
 
-    Optional<User> findByName(String name);
-
     @Query(value = "select u from User u where u.email = :email and u.password = :password")
     Long existsById(String email, String password);
 
@@ -25,4 +23,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "select u from User u where u.email = :email")
     User findUser(String email);
+
+    User findByName(String name);
 }

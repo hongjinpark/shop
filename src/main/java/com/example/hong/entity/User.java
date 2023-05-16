@@ -33,8 +33,11 @@ public class User extends BaseEntity{
     @Column(nullable = false)
     private String password;
 
+    // oauth2를 이용할 경우 어떤 플랫폼을 이용하는지
     //일반 계정, 구글, 네이버, 카카오
     private String provider;
+    // oauth2를 이용할 경우 아이디값
+    private String providerId;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -43,13 +46,14 @@ public class User extends BaseEntity{
     private List<Board> board = new ArrayList<>();
 
     @Builder
-    public User(Long id, String email,String name,String address ,String password, String provider, Role role) {
+    public User(Long id, String email,String name,String address ,String password, String provider, String providerId, Role role) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.address=address;
         this.password = password;
         this.provider = provider;
+        this.providerId = providerId;
         this.role = Role.USER;
     }
 

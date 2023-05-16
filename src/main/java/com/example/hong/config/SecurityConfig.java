@@ -1,9 +1,9 @@
 package com.example.hong.config;
 
 
-import com.example.hong.config.auth.CustomOAuth2UserService;
 import com.example.hong.config.auth.OAuth2SuccessHandler;
 import com.example.hong.config.auth.PrincipalDetailService;
+import com.example.hong.config.auth.PrincipalOauth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +33,7 @@ public class SecurityConfig {
 
     private final JwtProvider jwtProvider;
     private final PrincipalDetailService principalDetailService;
-    private final CustomOAuth2UserService oAuth2UserService;
+    private final PrincipalOauth2UserService principalOauth2UserService;
     private final OAuth2SuccessHandler successHandler;
 
     @Bean
@@ -55,6 +55,21 @@ public class SecurityConfig {
             }
         };
     }
+
+/*    @Bean
+    protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        http.httpBasic().disable()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .oauth2Login()
+                .successHandler(successHandler)
+                .userInfoEndpoint().userService(principalOauth2UserService);
+        return http.build();
+    }*/
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -104,11 +119,11 @@ public class SecurityConfig {
                         response.setContentType("text/html; charset=UTF-8");
                         response.getWriter().write("인증되지 않은 사용자입니다.");
                     }
-                })
-                .and()
-                .oauth2Login().loginPage("/token/expired")
+                });
+               /* .and()
+                .oauth2Login()
                 .successHandler(successHandler)
-                .userInfoEndpoint().userService(oAuth2UserService);
+                .userInfoEndpoint().userService(oAuth2UserService);*/
 
         return http.build();
     }
