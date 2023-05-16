@@ -1,6 +1,7 @@
 package com.example.hong.controller;
 
 import com.example.hong.dto.ItemDto;
+import com.example.hong.dto.MainItemDto;
 import com.example.hong.entity.Item;
 import com.example.hong.mapper.ItemMapper;
 import com.example.hong.service.ItemService;
@@ -34,9 +35,7 @@ public class ItemController {
     @GetMapping
     public ResponseEntity<?> findAllItem() {
 
-
-        List<Map<String, Object>> items = itemMapper.getAllItem();
-        resultMap.put("items", items);
+        List<MainItemDto> items = itemService.getAllItem();
 
         return new ResponseEntity<>(items, HttpStatus.OK);
     }

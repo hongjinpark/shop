@@ -39,7 +39,7 @@ public class CartItemController {
         cartService.deleteCart(id);
         return ResponseEntity.ok().build(); }
 
-    @PostMapping("/list/{id}/cart-to-order")
+    @PostMapping("/list/cart-to-order/{id}")
     public ResponseEntity cartToOrder(@PathVariable Long id,
                                       @AuthenticationPrincipal PrincipalDetail principalDetail){
         cartService.cartToOrder(id, principalDetail.getEmail());
