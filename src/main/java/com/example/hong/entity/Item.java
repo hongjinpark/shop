@@ -44,6 +44,9 @@ public class Item extends BaseEntity{
     @OneToMany(mappedBy = "item")
     private List<CartItem> cartItem=new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name ="category_id")
+    private Category category;
 
     @Builder
     public Item(String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus) {
