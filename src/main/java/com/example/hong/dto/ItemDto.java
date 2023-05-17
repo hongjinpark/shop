@@ -31,6 +31,7 @@ public class ItemDto {
     private ItemSellStatus itemSellStatus;
 
     private List<ItemImgDto> itemImgDtoList = new ArrayList<>();
+    private List<CategoryDto> categoryDtoList = new ArrayList<>();
 
     private List<Long> itemImgIds = new ArrayList<>();
     private static ModelMapper modelMapper = new ModelMapper();

@@ -1,5 +1,6 @@
 package com.example.hong.service;
 
+import com.example.hong.dto.CategoryDto;
 import com.example.hong.dto.ItemDto;
 import com.example.hong.dto.ItemImgDto;
 import com.example.hong.dto.MainItemDto;
@@ -32,16 +33,23 @@ public class ItemService {
 
         List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
         List<ItemImgDto> itemImgDtoList = new ArrayList<>();
+        List<CategoryDto> categoryDtoList = new ArrayList<>();
 
         for(ItemImg itemImg : itemImgList) {
 
             ItemImgDto itemImgDto = ItemImgDto.of(itemImg);
             itemImgDtoList.add(itemImgDto);
         }
+        //상품 카테고리 조회 추가
+        for (CategoryDto category : categoryDtoList) {
+            CategoryDto categoryDto = CategoryDto.of(category);
+            categoryDtoList.add(categoryDto);
+        }
 
         Item item = itemRepository.findById(itemId).orElseThrow(EntityNotFoundException::new);
         ItemDto itemDto = ItemDto.of(item);
         itemDto.setItemImgDtoList(itemImgDtoList);
+        itemDto.setCategoryDtoList(categoryDtoList);
         return itemDto;
 
        /* return itemRepository.findById(itemId).orElseThrow(IllegalArgumentException::new);*/
