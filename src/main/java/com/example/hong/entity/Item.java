@@ -49,12 +49,13 @@ public class Item extends BaseEntity{
     private Category category;
 
     @Builder
-    public Item(String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus) {
+    public Item(String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus, Category category) {
         this.itemName = itemName;
         this.price = price;
         this.stockNumber = stockNumber;
         this.itemDetail = itemDetail;
         this.itemSellStatus=itemSellStatus;
+        this.category=category;
     }
 
     public void updateItem(String itemName, int price, int stockNumber, String itemDetail){

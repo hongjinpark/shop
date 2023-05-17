@@ -4,6 +4,7 @@ import com.example.hong.dto.CategoryDto;
 import com.example.hong.dto.ItemDto;
 import com.example.hong.dto.ItemImgDto;
 import com.example.hong.dto.MainItemDto;
+import com.example.hong.entity.Category;
 import com.example.hong.entity.Item;
 import com.example.hong.entity.ItemImg;
 import com.example.hong.repository.ItemImgRepository;
@@ -23,7 +24,6 @@ import java.util.List;
 @Slf4j
 public class ItemService {
     private final ItemRepository itemRepository;
-
     private final ItemImgService itemImgService;
     private final ItemImgRepository itemImgRepository;
 

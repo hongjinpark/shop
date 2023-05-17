@@ -1,36 +1,40 @@
 package com.example.hong.controller;
 
 
+import ch.qos.logback.classic.util.LogbackMDCAdapter;
+import com.example.hong.dto.CategoryDto;
+import com.example.hong.entity.Category;
+import com.example.hong.entity.Item;
+import com.example.hong.mapper.CategoryMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/category")
 public class CategoryController {
-
-    // 카테고리 전체조회
-    @GetMapping("/")
-    public ResponseEntity<?> getCategory() {
-        return null;
+    private final CategoryMapper categoryMapper;
+    Map<String, Object> resultMap = new HashMap<>();
+    // 카테고리 추가
+    @PostMapping("/new")
+    public ResponseEntity createCategory(@RequestBody CategoryDto categoryDto){
+        categoryMapper.createCategory(categoryDto);
+        return ResponseEntity.ok().build();
     }
 
-    // 티어별로 카테고리 조회
-    @GetMapping("/{tier}")
-    public ResponseEntity<?> getCategoryTier() {
-        return null;
-    }
+    // 카테고리 상세조회
+    @GetMapping("/list/{tier}")
+    public ResponseEntity<?> getCategory(@PathVariable String tier){
+        List<Category> categorys = categoryMapper.getCategory(tier);
+        resultMap.put("categorys", categorys);
 
-    // 카테고리 등록
-    @PostMapping("/")
-    public ResponseEntity<?> registCategory() {
-        return null;
-    }
+        return new ResponseEntity<>(categorys, HttpStatus.OK);
 
-    // 카테고리 수정
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateCategory() {
-        return null;
     }
 }
