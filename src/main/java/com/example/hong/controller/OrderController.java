@@ -64,10 +64,6 @@ public class OrderController {
     @GetMapping
     public ResponseEntity orderHist(@AuthenticationPrincipal PrincipalDetail principalDetail) {
 
-        // 미완성
-        // email 추후에 수정
-        String email = /*principal.getName();*/ "test01@naver.com";
-
         List<OrderHistDto> orderHistList = orderService.getOrderList(principalDetail);
 
         return new ResponseEntity(orderHistList, HttpStatus.OK);
@@ -75,7 +71,7 @@ public class OrderController {
 
     // 주문 취소
     @PostMapping("/cancel/{orderId}")
-    public ResponseEntity cancelOrder(@PathVariable Long orderId, Principal principal) {
+    public ResponseEntity cancelOrder(@PathVariable Long orderId,@AuthenticationPrincipal PrincipalDetail principalDetail) {
 
         orderService.cancelOrder(orderId);
         return new ResponseEntity(orderId, HttpStatus.OK);
