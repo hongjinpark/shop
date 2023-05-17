@@ -3,6 +3,7 @@ package com.example.hong.mapper;
 
 import com.example.hong.dto.CategoryDto;
 import com.example.hong.entity.Category;
+import com.example.hong.entity.Item;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,7 @@ public interface CategoryMapper {
 
 
     List<Category> getCategory(String tier);
+
+
+    void insertCategory(CategoryDto categoryDto);
 }

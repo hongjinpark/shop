@@ -35,6 +35,11 @@ public class CategoryController {
         resultMap.put("categorys", categorys);
 
         return new ResponseEntity<>(categorys, HttpStatus.OK);
-
+    }
+    // insert category_id to item table
+    @PostMapping("/insert")
+    public ResponseEntity insertCategory(@RequestBody CategoryDto categoryDto){
+        categoryMapper.insertCategory(categoryDto);
+        return ResponseEntity.ok().build();
     }
 }
