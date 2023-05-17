@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -38,8 +37,8 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         String token = jwtProvider.createToken(userDto.getEmail(), Role.USER);
         log.info("{}", token);
-        targetUrl = UriComponentsBuilder.fromUriString("/home")
-                .queryParam("token", "token")
+        targetUrl = UriComponentsBuilder.fromUriString("http://localhost:8091")
+                //.queryParam("token", "token")
                 .build().toUriString();
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }

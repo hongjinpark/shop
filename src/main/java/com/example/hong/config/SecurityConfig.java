@@ -96,10 +96,13 @@ public class SecurityConfig {
                 .and()*/
                 .logout().logoutSuccessUrl("/") //logout 요청시 홈으로 이동 - 기본 logout url = "/logout"
                 .and()
+                .oauth2Login()
+                .successHandler(successHandler)
+                .userInfoEndpoint().userService(principalOauth2UserService);
                 // JWT 인증 필터 적용
-                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
+                http.addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
                 // 에러 핸들링
-                .exceptionHandling()
+                http.exceptionHandling()
                 .accessDeniedHandler(new AccessDeniedHandler() {
                     @Override
                     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
