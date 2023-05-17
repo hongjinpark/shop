@@ -28,7 +28,7 @@ public class CartCustomRepositoryImpl implements CartCustomRepository{
                         cartItem.count.as("count"),
                         item.itemName.as("itemNm"),
                         item.price.as("price"),
-                        itemImg.imgUrl.as("imgUrl")))
+                        itemImg.imgName.as("imgName")))
                 .from(cartItem)
                 .innerJoin(cartItem.cart,cart)
                 .innerJoin(cartItem.item,item)

@@ -3,5 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hong.mapper.CategoryMapper">
-
+    <select id="createCategory">
+        INSERT INTO category (name, tier)
+        VALUES (#{name}, #{tier})
+    </select>
+    <select id="getCategory" parameterType="String" resultType="HashMap">
+        SELECT * FROM category WHERE tier = #{tier}
+    </select>
 </mapper>
