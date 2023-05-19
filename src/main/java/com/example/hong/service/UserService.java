@@ -43,9 +43,8 @@ public class UserService {
     }
 
     @Transactional
-    public Long updateUser(Long id, UserDto userDto, PrincipalDetail principalDetail) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다. id=" + id));
-
+    public Long updateUser(UserDto userDto, PrincipalDetail principalDetail) {
+        User user = userRepository.findByEmail(principalDetail.getEmail());
         user.update(passwordEncoder.encode(userDto.getPassword()), userDto.getName());
 
         userRepository.save(user);
@@ -57,8 +56,9 @@ public class UserService {
         return user.getId();
     }
 
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    @Transactional
+    public void deleteUser(String email) {
+        userRepository.deleteByEmail(email);
     }
 
 

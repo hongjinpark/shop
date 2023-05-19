@@ -63,15 +63,15 @@ public class UserController {
     }
 
     //계정 이름, 비밀번호 수정
-    @PutMapping("/{id}")
-    public Long updateUser(@PathVariable Long id, @RequestBody UserDto userDto, @AuthenticationPrincipal PrincipalDetail principalDetail) {
-        return userService.updateUser(id, userDto, principalDetail);
+    @PutMapping("/modify")
+    public Long updateUser(@RequestBody UserDto userDto, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+        return userService.updateUser(userDto, principalDetail);
     }
 
     //계정 삭제
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    @DeleteMapping("/delete")
+    public void deleteUser(@AuthenticationPrincipal PrincipalDetail principalDetail) {
+        userService.deleteUser(principalDetail.getEmail());
     }
 
 
