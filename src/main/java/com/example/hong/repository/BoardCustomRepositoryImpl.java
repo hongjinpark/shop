@@ -40,7 +40,7 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository{
                 board.questionStatus))
                 .from(board)
                 .join(board.user,user)
-                .where(board.name.eq(user.name).and(user.email.eq(email)))
+                .where(user.email.eq(email))
                 .orderBy(board.id.desc())
                 .fetch();
     }
