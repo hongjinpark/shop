@@ -7,6 +7,7 @@ import com.example.hong.dto.MainItemDto;
 import com.example.hong.entity.Category;
 import com.example.hong.entity.Item;
 import com.example.hong.entity.ItemImg;
+import com.example.hong.repository.CategoryRepository;
 import com.example.hong.repository.ItemImgRepository;
 import com.example.hong.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;

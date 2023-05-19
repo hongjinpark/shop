@@ -10,8 +10,8 @@
     <select id="getCategory" parameterType="String" resultType="HashMap">
         SELECT * FROM category WHERE tier = #{tier}
     </select>
-    <select id="insertCategory">
-        INSERT INTO item(category_id)
-        (SELECT category_id FROM category WHERE category_id = #{category_id})
-    </select>
+    <insert id="insertCategory" parameterType="HashMap">
+        INSERT INTO item (category_id)
+        VALUES (#{category_id})
+    </insert>
 </mapper>
