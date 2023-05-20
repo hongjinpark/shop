@@ -45,7 +45,7 @@ public class UserService {
     @Transactional
     public Long updateUser(UserDto userDto, PrincipalDetail principalDetail) {
         User user = userRepository.findByEmail(principalDetail.getEmail());
-        user.update(passwordEncoder.encode(userDto.getPassword()), userDto.getName());
+        user.update(passwordEncoder.encode(userDto.getPassword()), userDto.getName(),userDto.getAddress());
 
         userRepository.save(user);
 

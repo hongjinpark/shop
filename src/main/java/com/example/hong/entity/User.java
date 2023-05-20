@@ -65,9 +65,10 @@ public class User extends BaseEntity{
         this.password = password;
     }
 
-    public void update(String password, String name) {
+    public void update(String password, String name ,String address) {
         this.password = password;
         this.name = name;
+        this.address=address;
     }
 
     //Oauth2
