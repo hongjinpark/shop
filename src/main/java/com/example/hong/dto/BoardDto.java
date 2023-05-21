@@ -30,14 +30,5 @@ public class BoardDto {
     private String email;
 
     private String answer;
-//    public Board toEntity(){
-//        return Board.builder()
-//                .name(name)
-//                .title(title)
-//                .content(content)
-//                .user(user)
-//                .questionStatus(QuestionStatus.WAIT)
-//                .build();
-//
-//    }
+
 }

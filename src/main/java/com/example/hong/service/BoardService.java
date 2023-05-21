@@ -36,7 +36,7 @@ public class BoardService {
         return boardRepository.save(board); }
 
     @Transactional
-    public String inputAnswer(Long id,String email,String answer){     //관리자만 문의 답장가능하게
+    public String inputAnswer(Long id,String email,String answer){
         Board board=boardRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 id가 없습니다. id=" + id));
 
         if (isUserRole(email)){
@@ -55,17 +55,17 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
-    public List<BoardDto> getBoardListOfUser(@AuthenticationPrincipal PrincipalDetail principalDetail){     //문의 조회(사용자용)
+    public List<BoardDto> getBoardListOfUser(@AuthenticationPrincipal PrincipalDetail principalDetail){
         log.info("=========service===={}",principalDetail.getEmail());
         return boardRepository.findBoardAllByEmailOfUser(principalDetail.getEmail()); }
 
-    public BoardDto getBoardOfUser(Long id,String email){ //querydsl처리 관리자용 1개 문의 조회
+    public BoardDto getBoardOfUser(Long id,String email){
         return boardRepository.findBoardByEmailOfUser(id,email); }
 
-    public BoardDto getBoardOfAdmin(Long id,String email){ //querydsl처리 관리자용 1개 문의 조회
+    public BoardDto getBoardOfAdmin(Long id,String email){
         return boardRepository.findBoardByEmailOfAdmin(id,email); }
 
-    public List<BoardDto> getBoardListOfAdmin(){ //전체 문의 조회(관리자용)
+    public List<BoardDto> getBoardListOfAdmin(){
         return boardRepository.findBoardAllByEmailOfAdmin(); }
 
     public boolean isUserRole(String email){
