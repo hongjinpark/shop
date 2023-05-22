@@ -28,7 +28,7 @@ public class Board {
     private String content;
 
     @Lob
-    private String answer; //문의 답장
+    private String answer;
 
     @Enumerated(EnumType.STRING)
     private QuestionStatus questionStatus;

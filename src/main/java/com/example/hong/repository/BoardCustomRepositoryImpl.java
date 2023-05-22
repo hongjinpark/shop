@@ -57,7 +57,6 @@ public class BoardCustomRepositoryImpl implements BoardCustomRepository{
                         board.answer))
                 .from(board)
                 .join(board.user,user)
-//                .where(board.name.eq(user.name).and(user.email.eq(email)))
                 .orderBy(board.id.desc())
                 .fetch();
     }

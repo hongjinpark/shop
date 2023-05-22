@@ -44,7 +44,6 @@ public class BoardService {
             boardRepository.save(board);
             return board.getAnswer();
         }else{
-            //오류
             log.info("오류구현");
             return null;
         }
@@ -56,7 +55,6 @@ public class BoardService {
     }
 
     public List<BoardDto> getBoardListOfUser(@AuthenticationPrincipal PrincipalDetail principalDetail){
-        log.info("=========service===={}",principalDetail.getEmail());
         return boardRepository.findBoardAllByEmailOfUser(principalDetail.getEmail()); }
 
     public BoardDto getBoardOfUser(Long id,String email){
