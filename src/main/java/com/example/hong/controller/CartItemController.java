@@ -34,7 +34,7 @@ public class CartItemController {
         cartService.modifyCart(id, count);
         return ResponseEntity.ok().build(); }
 
-    @DeleteMapping("/list/{id}")//id값은 cartId
+    @DeleteMapping("/list/{id}")
     public ResponseEntity deleteCart(@PathVariable Long id){
         cartService.deleteCart(id);
         return ResponseEntity.ok().build(); }
@@ -44,8 +44,4 @@ public class CartItemController {
                                       @AuthenticationPrincipal PrincipalDetail principalDetail){
         cartService.cartToOrder(id, principalDetail.getEmail());
         return ResponseEntity.ok().build();}
-    // 장바구니에서 주문하기 버튼을 누르면 주문 테이블에 데이터가 추가되고 장바구니 테이블에서 삭제된다.
-    // 주문 테이블에 데이터가 추가되는 것은 orderService에서 처리한다.
-    // 장바구니 테이블에서 삭제하는 것은 cartService에서 처리한다.
-
 }

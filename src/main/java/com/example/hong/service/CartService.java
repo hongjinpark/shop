@@ -42,7 +42,7 @@ public class CartService {
                 .cartItems(cartItemList)
                 .build();
 
-        Item.setCart(cart); //연관관계 편의 메서드
+        Item.setCart(cart);
 
         cartRepository.save(cart); }
 
@@ -64,16 +64,16 @@ public class CartService {
         orderRepository.save(order);
         cartRepository.deleteById(cartItem.getCart().getId()); }
 
-    @Transactional  //수정
+    @Transactional
     public void modifyCart(Long id,int count){
         CartItem cartItem=cartItemRepository.findByCart_id(id);
         cartItem.updateCount(count); }
 
-    @Transactional  //삭제
+    @Transactional
     public void deleteCart(Long id){
         cartRepository.deleteById(id); }
 
-    public List<CartDetailDto> getCartItemList(String email){  //    개인 cartitemlist
+    public List<CartDetailDto> getCartItemList(String email){
         List<CartDetailDto> cartDetailDtoList = new ArrayList<>();
         cartDetailDtoList = cartItemRepository.findAllCartOfUser(email);
         return cartDetailDtoList; }
