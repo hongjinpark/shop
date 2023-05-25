@@ -45,6 +45,13 @@ public class User extends BaseEntity{
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<Board> board = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> order=new ArrayList<>();
+
+    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cart> cart=new ArrayList<>();
+
+
     @Builder
     public User(Long id, String email,String name,String address ,String password, String provider, String providerId, Role role) {
         this.id = id;
