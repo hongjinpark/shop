@@ -2,6 +2,8 @@ package com.example.hong;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.servlet.LocaleResolver;
@@ -12,7 +14,7 @@ import java.util.Locale;
 
 @EnableJpaAuditing
 @SpringBootApplication
-public class HongApplication {
+public class HongApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(HongApplication.class, args);
@@ -23,5 +25,10 @@ public class HongApplication {
 		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
 		localeResolver.setDefaultLocale(Locale.KOREA);
 		return localeResolver;
+	}
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(HongApplication.class);
 	}
 }

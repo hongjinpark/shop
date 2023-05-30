@@ -11,7 +11,7 @@
 	<groupId>com.example.hong</groupId>
 	<artifactId>hong</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>hong</name>
 	<description>test project</description>
 	<properties>

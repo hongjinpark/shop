@@ -1,13 +1,8 @@
 package com.example.hong.service;
 
-import com.example.hong.dto.CategoryDto;
-import com.example.hong.dto.ItemDto;
-import com.example.hong.dto.ItemImgDto;
-import com.example.hong.dto.MainItemDto;
-import com.example.hong.entity.Category;
+import com.example.hong.dto.*;
 import com.example.hong.entity.Item;
 import com.example.hong.entity.ItemImg;
-import com.example.hong.repository.CategoryRepository;
 import com.example.hong.repository.ItemImgRepository;
 import com.example.hong.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -61,6 +56,7 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
+
     //상품 등록
     @Transactional
     public Item createItem(ItemDto itemDto, List<MultipartFile> itemImgFileList) throws Exception {
@@ -109,9 +105,9 @@ public class ItemService {
     }
 
     @Transactional
-    public List<MainItemDto> getAllItem() {
+    public List<MainItemDto> getAllItem(ItemSearchDto itemSearchDto) {
 
-        List<MainItemDto> items = itemRepository.findAllItemAndImgUrl();
+        List<MainItemDto> items = itemRepository.findAllItemAndImgUrl(itemSearchDto);
 
         return items;
     }

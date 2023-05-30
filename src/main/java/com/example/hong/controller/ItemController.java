@@ -1,6 +1,7 @@
 package com.example.hong.controller;
 
 import com.example.hong.dto.ItemDto;
+import com.example.hong.dto.ItemSearchDto;
 import com.example.hong.dto.MainItemDto;
 import com.example.hong.entity.Item;
 import com.example.hong.mapper.ItemMapper;
@@ -33,9 +34,9 @@ public class ItemController {
 
     //전체 상품조회
     @GetMapping
-    public ResponseEntity<?> findAllItem() {
+    public ResponseEntity<?> findAllItem(ItemSearchDto itemSearchDto) {
 
-        List<MainItemDto> items = itemService.getAllItem();
+        List<MainItemDto> items = itemService.getAllItem(itemSearchDto);
 
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
