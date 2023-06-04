@@ -46,7 +46,7 @@ public class CartService {
 
         cartRepository.save(cart); }
 
-    @Transactional  //카트 -> 주문
+    @Transactional
     public void cartToOrder(Long cartId,String email){
         CartItem cartItem=cartItemRepository.findByCart_id(cartId);
         Item item=itemRepository.findById(cartItem.getItem().getId()).get();

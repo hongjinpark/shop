@@ -1,7 +1,6 @@
 package com.example.hong.repository;
 
 import com.example.hong.dto.CartDetailDto;
-import com.example.hong.dto.CartItemDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

@@ -34,12 +34,10 @@ public class CartItem extends BaseEntity {
            this.count=count;
     }
 
-    public void setCart(Cart cart){ //연관관계 편의 메서드
+    public void setCart(Cart cart){
         this.cart=cart;
         cart.getCartItems().add(this);
     }
-
-    public void addCount(int count) { this.count += count; }
 
     public void updateCount(int count) { this.count = count; }
 }
