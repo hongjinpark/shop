@@ -49,12 +49,10 @@
     
 
 ## ERD Diagram
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/53a273ed-4eaf-419c-b36c-367d08735c68/Untitled.png)
+https://github.com/hongjinpark/shop/blob/master/Untitled.png
 
 ## Main
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/64fac515-c495-46e3-9e3e-0afd36c5094e/Untitled.png)
+https://github.com/hongjinpark/shop/blob/master/Untitled%20(1).png
 
 - Oauth2.0 을활용한 구글/네이버/카카오계정 로그인/회원가입 기능.
 - 회원가입시 입력정보 조건에 알맞도록 제어.
@@ -63,28 +61,25 @@
 - 메인화면 상품 검색 기능
 
 ## Product
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/428ff202-7cd1-4838-8209-58e444367ab2/Untitled.png)
+https://github.com/hongjinpark/shop/blob/master/Untitled%20(2).png
 
 - 상품 등록/수정/삭제 기능 **※ 수정, 삭제 기능은 추가예정**
 - 상품 장바구니 추가/삭제 기능
 - 상품 검색 기능
 
 ## MyPage
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/956b9998-3d1e-4686-af69-5d550ea2685c/Untitled.png)
+https://github.com/hongjinpark/shop/blob/master/Untitled%20(3).png
 
 - 마이페이지 사용자 주문/개인정보 수정, 회원탈퇴 기능
 - 주문, 주문취소기능
 
 ## Order
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f0043c38-74b0-403c-baf4-da46b6a05a92/Untitled.png)
+https://github.com/hongjinpark/shop/blob/master/Untitled%20(4).png
 
 - 회원별 주문정보/주문 취소 기능 **※주문 취소 기능 수정**
+https://github.com/hongjinpark/shop/blob/master/Untitled%20(5).png
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/31b27402-87c6-4d15-b691-f03993471a4e/Untitled.png)
-
+## 
 - 장바구니 상품 주문/취소/개수 추가 기능
 - 장바구니 상품 총 가격
 
