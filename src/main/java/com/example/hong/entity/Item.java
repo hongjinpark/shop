@@ -38,16 +38,18 @@ public class Item extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus; //상품 판매 상태
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItem=new ArrayList<>();
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItem=new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name ="category_id")
     private Category category;
 
+    @OneToMany(mappedBy = "item" ,cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemImg> itemImg = new ArrayList<>();
     @Builder
     public Item(String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus, Category category) {
         this.itemName = itemName;
