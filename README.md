@@ -37,15 +37,15 @@
 
 - 권혁민
     - Github - https://github.com/hyeok-min
-    - Mail -
+    - Mail - gurals04@naver.com
 
 - 오선영
     - Github - https://github.com/xymnl
-    - Mail -
+    - Mail - xymnl@naver.com
 
 - 안광민
     - Github - https://github.com/AnGwangMin1
-    - Mail -
+    - Mail - dksrhkd22@gmail.com
     
 
 ## ERD Diagram

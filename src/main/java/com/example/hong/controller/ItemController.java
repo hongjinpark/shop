@@ -52,11 +52,6 @@ public class ItemController {
     @PutMapping("/update/{itemId}")
     public Item updateItem(@PathVariable Long itemId, @RequestPart ItemDto itemDto, @RequestPart(required = false) List<MultipartFile> itemImgFileList) throws Exception {
 
-        System.out.println("itemDto = " + itemDto);
-
-        if(itemImgFileList != null) {
-            System.out.println("itemImgFileList = " + itemImgFileList);
-        }
 
         return itemService.updateItem(itemId, itemDto, itemImgFileList);
     }
