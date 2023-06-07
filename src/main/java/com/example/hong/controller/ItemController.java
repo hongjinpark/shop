@@ -50,7 +50,13 @@ public class ItemController {
 
     //상품 수정
     @PutMapping("/update/{itemId}")
-    public Item updateItem(@PathVariable Long itemId, @RequestBody ItemDto itemDto, @RequestParam List<MultipartFile> itemImgFileList) throws Exception {
+    public Item updateItem(@PathVariable Long itemId, @RequestPart ItemDto itemDto, @RequestPart(required = false) List<MultipartFile> itemImgFileList) throws Exception {
+
+        System.out.println("itemDto = " + itemDto);
+
+        if(itemImgFileList != null) {
+            System.out.println("itemImgFileList = " + itemImgFileList);
+        }
 
         return itemService.updateItem(itemId, itemDto, itemImgFileList);
     }

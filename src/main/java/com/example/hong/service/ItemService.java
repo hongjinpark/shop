@@ -91,9 +91,11 @@ public class ItemService {
         List<Long> itemImgIds = itemDto.getItemImgIds();
 
         //이미지 등록
-        for (int i = 0; i < itemImgFileList.size(); i++) {
+        if(itemImgFileList != null) {
+            for (int i = 0; i < itemImgFileList.size(); i++) {
 
-            itemImgService.updateItemImg(itemImgIds.get(i), itemImgFileList.get(i));
+                itemImgService.updateItemImg(itemImgIds.get(i), itemImgFileList.get(i));
+            }
         }
 
         return itemRepository.save(item);

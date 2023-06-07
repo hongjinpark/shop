@@ -3,6 +3,7 @@ package com.example.hong.entity;
 
 import com.example.hong.constant.ItemSellStatus;
 import com.example.hong.controller.GlobalExceptionHandler;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,9 +40,11 @@ public class Item extends BaseEntity{
     private ItemSellStatus itemSellStatus; //상품 판매 상태
 
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<OrderItem> orderItem=new ArrayList<>();
 
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<CartItem> cartItem=new ArrayList<>();
 
     @ManyToOne
@@ -49,15 +52,15 @@ public class Item extends BaseEntity{
     private Category category;
 
     @OneToMany(mappedBy = "item" ,cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<ItemImg> itemImg = new ArrayList<>();
     @Builder
-    public Item(String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus, Category category) {
+    public Item(String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus) {
         this.itemName = itemName;
         this.price = price;
         this.stockNumber = stockNumber;
         this.itemDetail = itemDetail;
         this.itemSellStatus=itemSellStatus;
-        this.category=category;
     }
 
     public void updateItem(String itemName, int price, int stockNumber, String itemDetail){
@@ -81,4 +84,5 @@ public class Item extends BaseEntity{
 
         this.stockNumber += stockNumber;
     }
+
 }
