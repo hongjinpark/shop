@@ -37,8 +37,8 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         String token = jwtProvider.createToken(userDto.getEmail(), Role.USER);
         log.info("{}", token);
-        targetUrl = UriComponentsBuilder.fromUriString("http://localhost:8091")
-                //.queryParam("token", "token")
+        targetUrl = UriComponentsBuilder.fromUriString("http://localhost:8091/loginUser/oauth")
+                .queryParam("token", token)
                 .build().toUriString();
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
