@@ -90,6 +90,7 @@ public class ItemService {
 
         List<Long> itemImgIds = itemDto.getItemImgIds();
 
+        log.info("====size==={}",itemImgFileList.size());
         //이미지 등록
         if(itemImgFileList != null) {
             for (int i = 0; i < itemImgFileList.size(); i++) {

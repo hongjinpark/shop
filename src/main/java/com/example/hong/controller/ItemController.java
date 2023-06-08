@@ -50,10 +50,9 @@ public class ItemController {
 
     //상품 수정
     @PutMapping("/update/{itemId}")
-    public Item updateItem(@PathVariable Long itemId, @RequestPart ItemDto itemDto, @RequestPart(required = false) List<MultipartFile> itemImgFileList) throws Exception {
-
-
-        return itemService.updateItem(itemId, itemDto, itemImgFileList);
+    public ResponseEntity updateItem(@PathVariable Long itemId, @RequestPart ItemDto itemDto, @RequestPart(required = false) List<MultipartFile> itemImgFileList) throws Exception {
+        itemService.updateItem(itemId, itemDto, itemImgFileList);
+        return ResponseEntity.ok().build();
     }
 
     //상품 삭제
