@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import java.util.Map;
 
 @Getter
 @NoArgsConstructor
@@ -56,10 +57,23 @@ public class UserDto {
 
     public static UserDto toDto(OAuth2User oAuth2User) {
         var attributes = oAuth2User.getAttributes();
-        return UserDto.builder()
-                .email((String)attributes.get("email"))
-                .name((String)attributes.get("name"))
-                .build();
+
+        //google 일때
+        if(attributes.get("email") != null) {
+            return UserDto.builder()
+                    .email((String)attributes.get("email"))
+                    .name((String)attributes.get("name"))
+                    .build();
+        }
+        //naver 일때
+        else {
+            Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+
+            return UserDto.builder()
+                    .email((String)response.get("email"))
+                    .name((String)response.get("name"))
+                    .build();
+        }
     }
 
     public UserDto(User user) {

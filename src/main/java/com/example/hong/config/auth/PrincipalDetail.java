@@ -1,7 +1,9 @@
 package com.example.hong.config.auth;
 
+import com.example.hong.config.auth.userinfo.OAuth2UserInfo;
 import com.example.hong.entity.User;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -11,8 +13,10 @@ import java.util.Collection;
 import java.util.Map;
 
 @Getter
+@ToString
 public class PrincipalDetail implements UserDetails, OAuth2User {
 
+    private OAuth2UserInfo oAuth2UserInfo;
     private User user;
     private Map<String, Object> attributes;
 
@@ -25,6 +29,11 @@ public class PrincipalDetail implements UserDetails, OAuth2User {
     public PrincipalDetail(User user, Map<String, Object> attributes ) {
         this.user = user;
         this.attributes = attributes;
+    }
+
+    public PrincipalDetail(User user, OAuth2UserInfo oAuth2UserInfo) {
+        this.user = user;
+        this.oAuth2UserInfo = oAuth2UserInfo;
     }
 
     @Override

@@ -34,8 +34,9 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         // 최초 로그인이라면 회원가입 처리를 한다.
         String targetUrl;
         log.info("토큰 발행 시작");
-
+        System.out.println("oAuth2User email= " + oAuth2User.getAttribute(userDto.getEmail()));
         String token = jwtProvider.createToken(userDto.getEmail(), Role.USER);
+        log.info("{}", userDto.getEmail());
         log.info("{}", token);
         targetUrl = UriComponentsBuilder.fromUriString("http://localhost:8091/loginUser/oauth")
                 .queryParam("token", token)
