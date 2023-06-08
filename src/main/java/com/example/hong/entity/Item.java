@@ -40,11 +40,9 @@ public class Item extends BaseEntity{
     private ItemSellStatus itemSellStatus; //상품 판매 상태
 
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
     private List<OrderItem> orderItem=new ArrayList<>();
 
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
     private List<CartItem> cartItem=new ArrayList<>();
 
     @ManyToOne
@@ -52,7 +50,6 @@ public class Item extends BaseEntity{
     private Category category;
 
     @OneToMany(mappedBy = "item" ,cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
     private List<ItemImg> itemImg = new ArrayList<>();
     @Builder
     public Item(String itemName, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus) {
