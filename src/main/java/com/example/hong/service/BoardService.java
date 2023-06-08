@@ -43,10 +43,8 @@ public class BoardService {
             board.insertAnswer(answer);
             boardRepository.save(board);
             return board.getAnswer();
-        }else{
-            log.info("오류구현");
-            return null;
         }
+        return null;
     }
 
     @Transactional
