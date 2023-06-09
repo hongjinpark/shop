@@ -50,7 +50,7 @@
 
 ## ERD Diagram
 <p align="center">
-  <img src="https://github.com/hongjinpark/shop/blob/master/Untitled.png">
+  <img src="https://github.com/hongjinpark/shop/blob/master/readmeImg/erd.PNG">
 </p>
 
 ## Main
@@ -69,7 +69,10 @@
   <img src="https://github.com/hongjinpark/shop/blob/master/readmeImg/product.PNG">
 </p>
 
-- 상품 등록/수정/삭제 기능 **※ 수정, 삭제 기능은 추가예정**
+관리자 페이지(상품 관리)
+- 상품 등록/수정/삭제 기능
+
+사용자 페이지
 - 상품 장바구니 추가/삭제 기능
 - 상품 검색 기능
 
@@ -86,7 +89,7 @@
   <img src="https://github.com/hongjinpark/shop/blob/master/readmeImg/order.PNG">
 </p>
 
-- 회원별 주문정보/주문 취소 기능 **※주문 취소 기능 수정**
+- 회원별 주문정보/주문 취소 기능
 
 ## Cart
 <p align="center">
