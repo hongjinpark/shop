@@ -88,9 +88,9 @@ public class ItemService {
 
         item.updateItem(itemDto.getItemName(),itemDto.getPrice(),itemDto.getStockNumber(), itemDto.getItemDetail());
 
-        List<Long> itemImgIds = itemDto.getItemImgIds();
+        List<Long> itemImgIds = itemImgRepository.countById(id);
 
-        log.info("====size==={}",itemImgFileList.size());
+        System.out.println("itemImgFileList = " + itemImgFileList);
         //이미지 등록
         if(itemImgFileList != null) {
             for (int i = 0; i < itemImgFileList.size(); i++) {
