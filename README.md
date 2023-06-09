@@ -55,7 +55,7 @@
 
 ## Main
 <p align="center">
-  <img src="https://github.com/hongjinpark/shop/blob/master/Untitled%20(1).png">
+  <img src="https://github.com/hongjinpark/shop/blob/master/readmeImg/main.PNG">
 </p>
 
 - Oauth2.0 을활용한 구글/네이버/카카오계정 로그인/회원가입 기능.
@@ -66,7 +66,7 @@
 
 ## Product
 <p align="center">
-  <img src="https://github.com/hongjinpark/shop/blob/master/Untitled%20(2).png">
+  <img src="https://github.com/hongjinpark/shop/blob/master/readmeImg/product.PNG">
 </p>
 
 - 상품 등록/수정/삭제 기능 **※ 수정, 삭제 기능은 추가예정**
@@ -75,7 +75,7 @@
 
 ## MyPage
 <p align="center">
-  <img src="https://github.com/hongjinpark/shop/blob/master/Untitled%20(3).png">
+  <img src="https://github.com/hongjinpark/shop/blob/master/readmeImg/mypage.PNG">
 </p>
 
 - 마이페이지 사용자 주문/개인정보 수정, 회원탈퇴 기능
@@ -83,14 +83,14 @@
 
 ## Order
 <p align="center">
-  <img src="https://github.com/hongjinpark/shop/blob/master/Untitled%20(4).png">
+  <img src="https://github.com/hongjinpark/shop/blob/master/readmeImg/order.PNG">
 </p>
 
 - 회원별 주문정보/주문 취소 기능 **※주문 취소 기능 수정**
 
 ## Cart
 <p align="center">
-  <img src="https://github.com/hongjinpark/shop/blob/master/Untitled%20(5).png">
+  <img src="https://github.com/hongjinpark/shop/blob/master/readmeImg/cart.PNG">
 </p>
 
 - 장바구니 상품 주문/취소/개수 추가 기능
