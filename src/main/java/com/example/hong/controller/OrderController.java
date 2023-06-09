@@ -15,7 +15,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -71,7 +70,7 @@ public class OrderController {
 
     // 주문 취소
     @PostMapping("/cancel/{orderId}")
-    public ResponseEntity cancelOrder(@PathVariable Long orderId,@AuthenticationPrincipal PrincipalDetail principalDetail) {
+    public ResponseEntity cancelOrder(@PathVariable("orderId") Long orderId,@AuthenticationPrincipal PrincipalDetail principalDetail) {
 
         orderService.cancelOrder(orderId);
         return new ResponseEntity(orderId, HttpStatus.OK);

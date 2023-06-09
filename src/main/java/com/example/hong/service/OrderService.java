@@ -86,6 +86,7 @@ public class OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(EntityNotFoundException::new);
         order.cancelOrder();
+        orderRepository.save(order);
     }
 
     //Mybatis

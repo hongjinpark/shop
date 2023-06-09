@@ -76,7 +76,7 @@ public class Order extends BaseEntity{
 
     public void cancelOrder() {
 
-        this.orderStatus = OrderStatus.ORDER.CANCEL;
+        this.setOrderStatus(OrderStatus.CANCEL);
 
         for(OrderItem orderItem : orderItems) {
 
